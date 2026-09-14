@@ -7,13 +7,17 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card"
 
+import Logo from "@/components/common/Logo"
+
 export default function Page() {
   return (
-    <main className="mx-auto flex min-h-svh max-w-lg flex-col justify-center p-6">
+    <main className="mx-auto flex w-full max-w-lg flex-1 flex-col justify-center p-6">
       <Card>
         <CardHeader>
           <CardTitle>
-            <h1>useMe</h1>
+            <h1>
+              <Logo className="h-10" />
+            </h1>
           </CardTitle>
           <CardDescription>
             토이프로젝트를 어필 카드로 바꿔 공유하고, 사람들이 직접 써 보고
