@@ -1,20 +1,25 @@
 import AppealCard from "./AppealCard"
+import Reveal from "./Reveal"
 import { sampleProjects } from "./sampleProjects"
 
 export default function LandingSamples() {
+  const rest = sampleProjects.slice(1)
+
   return (
-    <section className="flex flex-col gap-8">
-      <div className="flex flex-col gap-2">
-        <h2 className="text-2xl font-bold tracking-tight break-keep">
-          어필 카드는 이렇게 보여요.
+    <section className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-6 py-16 sm:py-20">
+      <Reveal className="flex flex-col gap-3">
+        <h2 className="text-[28px] leading-snug font-bold tracking-tight break-keep sm:text-[32px]">
+          이런 카드가 나가요.
         </h2>
-        <p className="text-muted-foreground max-w-xl text-sm leading-relaxed break-keep">
-          문제 / 한 일 / 숫자 세 칸이 보여야, 왜 쓰는지가 한 눈에 들어와요.
+        <p className="text-muted-foreground max-w-xl text-[17px] leading-relaxed break-keep">
+          아래 ‘써 보기’는 실제로 눌러보는 자리예요. 지금은 모양만 보여요.
         </p>
-      </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {sampleProjects.map((project) => (
-          <AppealCard key={project.name} project={project} />
+      </Reveal>
+      <div className="grid gap-5 md:grid-cols-2">
+        {rest.map((project, index) => (
+          <Reveal key={project.name} delay={index * 0.08}>
+            <AppealCard project={project} />
+          </Reveal>
         ))}
       </div>
     </section>
