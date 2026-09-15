@@ -20,7 +20,7 @@ export default function LandingActions({
   const onBrand = tone === "onBrand"
 
   return (
-    <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:gap-3">
+    <div className="flex w-full flex-col items-center gap-2 sm:w-auto sm:flex-row sm:gap-3">
       <Button
         type="button"
         size="lg"

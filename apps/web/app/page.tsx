@@ -1,5 +1,6 @@
 import LandingCardExplain from "./_components/LandingCardExplain"
 import LandingCtaBand from "./_components/LandingCtaBand"
+import LandingFeedback from "./_components/LandingFeedback"
 import LandingHero from "./_components/LandingHero"
 import LandingProblem from "./_components/LandingProblem"
 import LandingSamples from "./_components/LandingSamples"
@@ -13,6 +14,7 @@ export default function Page() {
       <LandingCardExplain />
       <LandingSteps />
       <LandingSamples />
+      <LandingFeedback />
       <LandingCtaBand />
     </main>
   )
