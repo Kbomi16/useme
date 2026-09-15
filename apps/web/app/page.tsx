@@ -9,6 +9,8 @@ import {
 
 import Logo from "@/components/common/Logo"
 
+import ModalPreview from "./_components/ModalPreview"
+
 export default function Page() {
   return (
     <main className="mx-auto flex w-full max-w-lg flex-1 flex-col justify-center p-6">
@@ -31,6 +33,7 @@ export default function Page() {
           <Button type="button" disabled>
             시작 안내
           </Button>
+          <ModalPreview />
         </CardContent>
       </Card>
     </main>

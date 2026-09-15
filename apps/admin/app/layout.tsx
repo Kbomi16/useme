@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google"
 import "@workspace/ui/globals.css"
 import { cn } from "@workspace/ui/lib/utils"
 
+import { Toaster } from "@workspace/ui/components/sonner"
+
 import AppHeader from "@/components/common/AppHeader"
 import Providers from "@/components/common/Providers"
 import ThemeProvider from "@/components/common/ThemeProvider"
@@ -41,6 +43,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <AppHeader />
               {children}
             </div>
+            <Toaster position="top-center" />
           </Providers>
         </ThemeProvider>
       </body>
