@@ -16,11 +16,11 @@ export default function LandingChipMarquee() {
     <div className="relative overflow-hidden py-4">
       <div
         aria-hidden="true"
-        className="from-background pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-linear-to-r to-transparent"
+        className="from-background pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-linear-to-r to-transparent"
       />
       <div
         aria-hidden="true"
-        className="from-background pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-linear-to-l to-transparent"
+        className="from-background pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-linear-to-l to-transparent"
       />
       <div className="chip-marquee-track flex w-max gap-2 pr-2">
         {loop.map((chip, index) => (

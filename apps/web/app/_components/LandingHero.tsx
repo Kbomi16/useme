@@ -4,12 +4,12 @@ import LandingHeroScene from "./LandingHeroScene"
 
 export default function LandingHero() {
   return (
-    <section className="mx-auto flex w-full max-w-5xl flex-col items-center gap-8 px-6 pt-12 pb-10 sm:pt-16">
-      <div className="flex max-w-2xl flex-col items-center gap-5 text-center">
+    <section className="mx-auto grid min-h-screen w-full max-w-5xl content-center gap-10 px-6 pt-12 pb-10 sm:pt-16 lg:grid-cols-2 lg:items-center lg:gap-12">
+      <div className="flex flex-col items-start gap-5 text-left">
         <p className="landing-in text-primary text-[15px] font-semibold">
           useMe에서는
         </p>
-        <h1 className="landing-in landing-in-d1 text-[36px] leading-[1.22] font-bold tracking-tight break-keep sm:text-[52px]">
+        <h1 className="landing-in landing-in-d1 text-[36px] leading-[1.22] font-bold tracking-tight break-keep sm:text-[48px]">
           링크만 보내지 말고,
           <br />
           써 보라고 해요.
@@ -19,14 +19,16 @@ export default function LandingHero() {
           온 사람이 바로 눌러서 써 볼 수 있어요.
         </p>
         <div className="landing-in landing-in-d3">
-          <LandingActions />
+          <LandingActions className="items-start" />
         </div>
       </div>
-      <div className="landing-in landing-in-d4 w-full">
-        <LandingHeroScene />
-      </div>
-      <div className="landing-in landing-in-d5 w-full">
-        <LandingChipMarquee />
+      <div className="flex min-w-0 flex-col gap-2">
+        <div className="landing-in landing-in-d4 w-full">
+          <LandingHeroScene />
+        </div>
+        <div className="landing-in landing-in-d5 w-full">
+          <LandingChipMarquee />
+        </div>
       </div>
     </section>
   )

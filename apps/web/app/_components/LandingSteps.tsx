@@ -12,7 +12,7 @@ const stages = [
     label: "올리기",
     title: "프로젝트를 올려요",
     body: "이름, 한 줄, 써 볼 수 있는 주소만 먼저 적어요.",
-    imageSrc: "/illustrations/step-upload.png",
+    imageSrc: "/illustrations/step-upload-cut.png",
   },
   {
     id: "fill",
@@ -20,7 +20,7 @@ const stages = [
     label: "세 칸",
     title: "왜, 뭘, 얼마나 채워요",
     body: "이 세 줄이 그대로 카드가 돼요.",
-    imageSrc: "/illustrations/step-fill.png",
+    imageSrc: "/illustrations/step-fill-cut.png",
   },
   {
     id: "share",
@@ -28,7 +28,7 @@ const stages = [
     label: "뿌리기",
     title: "한 장으로 뿌려요",
     body: "단톡이든 트위터든, 같은 카드를 붙여요.",
-    imageSrc: "/illustrations/step-share.png",
+    imageSrc: "/illustrations/step-share-cut.png",
   },
   {
     id: "try",
@@ -36,7 +36,7 @@ const stages = [
     label: "써 보기",
     title: "써 본 사람이 남겨요",
     body: "직접 만져 보고 좋아요나 한마디가 돌아와요.",
-    imageSrc: "/illustrations/step-try.png",
+    imageSrc: "/illustrations/step-try-heart.png",
   },
 ]
 

@@ -14,7 +14,7 @@ export const sampleProjects: SampleProject[] = [
     problem: "쓸 수 있는 방인지 보러 매번 일어나요.",
     action: "캘린더랑 붙여서 비는 방을 슬랙에 알려줘요.",
     metric: "팀 12명이 하루 네 번은 덜 걸어가요.",
-    imageSrc: "/illustrations/og-seat.png",
+    imageSrc: "/illustrations/og-room.png",
   },
   {
     name: "영수증함",
@@ -22,7 +22,7 @@ export const sampleProjects: SampleProject[] = [
     problem: "더치페이를 엑셀에 옮기다 빠뜨려요.",
     action: "영수증 사진 올리면 인원대로 나눠 줘요.",
     metric: "정산이 20분에서 2분으로 줄었어요.",
-    imageSrc: "/illustrations/og-receipt.png",
+    imageSrc: "/illustrations/og-bill.png",
   },
   {
     name: "커밋모음",
@@ -30,6 +30,6 @@ export const sampleProjects: SampleProject[] = [
     problem: "금요일이면 이번 주에 뭘 했는지 기억이 안 나요.",
     action: "git log를 모아서 회고용 한 장을 줘요.",
     metric: "주간 회고 준비에 10분이면 돼요.",
-    imageSrc: "/illustrations/og-commit.png",
+    imageSrc: "/illustrations/og-git.png",
   },
 ]

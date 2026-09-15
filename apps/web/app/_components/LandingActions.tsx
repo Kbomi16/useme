@@ -8,10 +8,12 @@ import { cn } from "@workspace/ui/lib/utils"
 
 type LandingActionsProps = {
   tone?: "default" | "onBrand"
+  className?: string
 }
 
 export default function LandingActions({
   tone = "default",
+  className,
 }: LandingActionsProps) {
   const handlePublish = () => {
     toast.info("로그인은 다음에 붙일게요.")
@@ -20,7 +22,12 @@ export default function LandingActions({
   const onBrand = tone === "onBrand"
 
   return (
-    <div className="flex w-full flex-col items-center gap-2 sm:w-auto sm:flex-row sm:gap-3">
+    <div
+      className={cn(
+        "flex w-full flex-col items-center gap-2 sm:w-auto sm:flex-row sm:gap-3",
+        className
+      )}
+    >
       <Button
         type="button"
         size="lg"

@@ -1,6 +1,5 @@
 import Image from "next/image"
 
-import AppealCard from "./AppealCard"
 import Reveal from "./Reveal"
 import { sampleProjects, type SampleProject } from "./sampleProjects"
 
@@ -21,9 +20,9 @@ export default function LandingProblem() {
         <div className="grid w-full gap-10 md:grid-cols-2">
           <Reveal>
             <figure className="flex flex-col items-center gap-4 text-center">
-              <div className="bg-muted flex aspect-[4/3] w-full max-w-sm items-center justify-center overflow-hidden rounded-[28px]">
+              <div className="bg-muted flex aspect-4/3 w-full max-w-sm items-center justify-center overflow-hidden rounded-[28px]">
                 <Image
-                  src="/illustrations/flat-link.png"
+                  src="/illustrations/link-chat.png"
                   alt=""
                   width={720}
                   height={540}
@@ -66,18 +65,55 @@ export default function LandingProblem() {
 }
 
 function AppealCardDevice({ project }: { project: SampleProject }) {
+  const rows = [
+    { hint: "왜", text: project.problem },
+    { hint: "뭘", text: project.action },
+    { hint: "얼마나", text: project.metric },
+  ]
+
   return (
-    <div className="bg-muted relative flex aspect-[4/3] w-full max-w-sm items-center justify-center overflow-hidden rounded-[28px]">
+    <div className="bg-muted relative flex aspect-4/3 w-full max-w-sm items-center justify-center overflow-hidden rounded-[28px]">
       <div
         aria-hidden="true"
-        className="absolute top-7 left-5 h-12 w-[4.5rem] rounded-2xl rounded-bl-sm bg-[#F5C518]"
+        className="bg-primary/12 absolute -top-8 -right-10 size-44 rounded-full"
       />
-      <div className="relative origin-center rotate-[-7deg] scale-[0.64]">
-        <div className="w-[252px] rounded-[34px] bg-[#2a2438] p-[8px] shadow-[0_22px_44px_rgb(42_36_56/0.32)]">
-          <div className="mx-auto mb-1.5 h-1 w-11 rounded-full bg-white/25" />
-          <div className="overflow-hidden rounded-[26px]">
-            <AppealCard project={project} />
-          </div>
+      <div className="relative w-[76%] rotate-[-5deg]">
+        <div className="rounded-[30px] bg-foreground/90 p-1.5 shadow-[0_22px_44px_rgb(42_36_56/0.28)]">
+          <div className="mx-auto mb-1 h-1 w-10 rounded-full bg-white/25" />
+          <article className="bg-card overflow-hidden rounded-[24px]">
+            <div className="bg-muted relative h-20">
+              <Image
+                src={project.imageSrc}
+                alt=""
+                fill
+                sizes="280px"
+                className="object-contain"
+              />
+            </div>
+            <div className="flex flex-col gap-2 p-3">
+              <h3 className="text-[15px] font-bold tracking-tight break-keep">
+                {project.name}
+              </h3>
+              <ul className="flex flex-col gap-1">
+                {rows.map((row) => (
+                  <li key={row.hint} className="flex items-center gap-1.5">
+                    <span className="bg-secondary text-secondary-foreground inline-flex shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-semibold">
+                      {row.hint}
+                    </span>
+                    <p className="min-w-0 truncate text-left text-[12px] leading-snug">
+                      {row.text}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+              <div
+                aria-hidden="true"
+                className="bg-primary text-primary-foreground flex h-8 items-center justify-center rounded-lg text-[12px] font-semibold"
+              >
+                써 보기
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </div>

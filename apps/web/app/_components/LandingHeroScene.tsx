@@ -25,9 +25,9 @@ export default function LandingHeroScene() {
   )
 
   return (
-    <div ref={sceneRef} className="mx-auto w-full max-w-xl">
+    <div ref={sceneRef} className="w-full">
       <Image
-        src="/illustrations/hero-person.png"
+        src="/illustrations/hero-card-grin.png"
         alt="어필 카드를 들고 있는 사람"
         width={1280}
         height={720}

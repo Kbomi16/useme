@@ -4,17 +4,17 @@ import Reveal from "./Reveal"
 
 const slots = [
   {
-    imageSrc: "/illustrations/slot-why.png",
+    imageSrc: "/illustrations/slot-why-cut.png",
     title: "왜 만들었어요?",
     body: "뭘 불편해서 만들었는지. 이 한 줄이 카드의 첫 칸이에요.",
   },
   {
-    imageSrc: "/illustrations/slot-what.png",
+    imageSrc: "/illustrations/slot-what-cut.png",
     title: "뭘 했어요?",
     body: "그 불편함을 어떻게 없앴는지. 사람이 바로 이해하게요.",
   },
   {
-    imageSrc: "/illustrations/slot-metric.png",
+    imageSrc: "/illustrations/slot-metric-cut.png",
     title: "얼마나 돼요?",
     body: "시간, 횟수, 사람 수처럼 감이 오는 숫자만 넣어요.",
   },
