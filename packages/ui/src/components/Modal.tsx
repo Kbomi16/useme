@@ -89,11 +89,13 @@ export default function Modal({
         style={contentStyle}
         {...(!description ? { "aria-describedby": undefined } : {})}
         className={cn(
-          "bg-background inset-0 top-0 left-0 flex h-dvh w-screen max-w-none translate-x-0 translate-y-0 flex-col gap-0 overflow-hidden border-none p-0 shadow-lg",
+          "inset-0 top-0 left-0 flex h-dvh w-screen max-w-none translate-x-0 translate-y-0 flex-col gap-0 overflow-hidden border-none bg-background p-0 shadow-lg",
           isFullscreen
             ? "sm:top-0 sm:left-0 sm:h-dvh sm:max-h-none sm:w-screen sm:max-w-none sm:translate-x-0 sm:translate-y-0 sm:rounded-none"
             : "sm:top-1/2 sm:left-1/2 sm:max-h-[85vh] sm:w-full sm:max-w-(--modal-width) sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-3xl",
-          hasFixedHeight || isFullscreen ? "sm:h-(--modal-height)" : "sm:h-auto",
+          hasFixedHeight || isFullscreen
+            ? "sm:h-(--modal-height)"
+            : "sm:h-auto",
           className
         )}
       >
@@ -101,17 +103,17 @@ export default function Modal({
           <DialogHeader className="shrink-0 bg-transparent p-6 pb-2 text-left">
             <div className="flex items-start justify-between gap-4">
               <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-                <DialogTitle className="text-xl leading-snug font-bold tracking-tight break-keep">
+                <DialogTitle className="text-xl/snug font-bold tracking-tight break-keep">
                   {title}
                 </DialogTitle>
                 {description ? (
-                  <DialogDescription className="text-sm leading-relaxed font-medium break-keep">
+                  <DialogDescription className="text-sm/relaxed font-medium break-keep">
                     {description}
                   </DialogDescription>
                 ) : null}
               </div>
 
-              <div className="text-muted-foreground flex shrink-0 items-center gap-0.5">
+              <div className="flex shrink-0 items-center gap-0.5 text-muted-foreground">
                 {headerActions}
                 {isShowFullScreenToggle ? (
                   <Button

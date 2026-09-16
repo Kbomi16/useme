@@ -74,14 +74,14 @@ export default function DynamicConfirmModal({
 
       <AlertDialogContent
         size="sm"
-        className="border-border/60 max-w-90 gap-0 rounded-3xl border p-6 shadow-xl ring-0"
+        className="max-w-90 gap-0 rounded-3xl border border-border/60 p-6 shadow-xl ring-0"
       >
         <div className="space-y-5">
           <div className="space-y-2 text-left">
-            <AlertDialogTitle className="text-foreground text-lg leading-snug font-bold tracking-tight">
+            <AlertDialogTitle className="text-lg/snug font-bold tracking-tight text-foreground">
               {title}
             </AlertDialogTitle>
-            <AlertDialogDescription className="text-muted-foreground text-sm leading-relaxed font-normal whitespace-pre-line">
+            <AlertDialogDescription className="text-sm/relaxed font-normal whitespace-pre-line text-muted-foreground">
               {content}
             </AlertDialogDescription>
           </div>
@@ -90,7 +90,7 @@ export default function DynamicConfirmModal({
             <AlertDialogCancel
               disabled={isLoading}
               variant="outline"
-              className="border-border bg-background text-foreground hover:bg-muted h-11 w-full rounded-xl font-semibold shadow-none"
+              className="h-11 w-full rounded-xl border-border bg-background font-semibold text-foreground shadow-none hover:bg-muted"
             >
               {cancelText}
             </AlertDialogCancel>

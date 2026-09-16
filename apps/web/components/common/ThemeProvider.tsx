@@ -1,9 +1,23 @@
 "use client"
 
-import { ThemeProvider as NextThemesProvider } from "next-themes"
+import { useEffect } from "react"
+import {
+  ThemeProvider as NextThemesProvider,
+  useTheme,
+} from "next-themes"
 
 type ThemeProviderProps = {
   children: React.ReactNode
+}
+
+function SyncSystemTheme() {
+  const { setTheme } = useTheme()
+
+  useEffect(() => {
+    setTheme("system")
+  }, [setTheme])
+
+  return null
 }
 
 export default function ThemeProvider({ children }: ThemeProviderProps) {
@@ -14,6 +28,7 @@ export default function ThemeProvider({ children }: ThemeProviderProps) {
       enableSystem
       disableTransitionOnChange
     >
+      <SyncSystemTheme />
       {children}
     </NextThemesProvider>
   )

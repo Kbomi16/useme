@@ -189,7 +189,9 @@ function Toaster({ ...props }: ToasterProps) {
   const { theme = "system" } = useTheme()
 
   useEffect(() => {
-    if (new URLSearchParams(window.location.search).get("toast") !== "preview") {
+    if (
+      new URLSearchParams(window.location.search).get("toast") !== "preview"
+    ) {
       return
     }
 
@@ -221,7 +223,7 @@ function Toaster({ ...props }: ToasterProps) {
           ),
           warning: (
             <ToastStatusIcon variant="warning">
-              <span className="flex size-full items-center justify-center text-[13px] leading-none font-bold">
+              <span className="flex size-full items-center justify-center text-[13px]/none font-bold">
                 !
               </span>
             </ToastStatusIcon>
@@ -265,4 +267,4 @@ function Toaster({ ...props }: ToasterProps) {
   )
 }
 
-export { Toaster }
+export { Toaster, toast }
