@@ -30,14 +30,17 @@ export default function LandingProblem() {
                 />
               </div>
               <figcaption className="flex flex-col gap-1">
-                <p className="text-muted-foreground text-[13px] font-semibold">
+                <p className="text-destructive text-[13px] font-semibold">
                   지금처럼 링크만
                 </p>
                 <p className="text-[16px] font-bold tracking-tight break-keep">
                   한 줄 떨어지고 끝나요
                 </p>
-                <p className="text-muted-foreground text-[14px] leading-relaxed break-keep">
-                  github.com/me/toy. 뭘 하는 건지 안 보여요.
+                <p className="text-[14px] leading-relaxed break-keep">
+                  <span className="text-muted-foreground">github.com/me/toy.</span>{" "}
+                  <span className="text-destructive font-semibold">
+                    뭘 하는 건지 안 보여요.
+                  </span>
                 </p>
               </figcaption>
             </figure>
