@@ -36,16 +36,18 @@ export default function LandingCardExplain() {
         </Reveal>
         <div className="grid w-full gap-10 sm:grid-cols-3">
           {slots.map((slot, index) => (
-            <Reveal key={slot.title} delay={index * 0.08}>
-              <article className="flex flex-col items-center gap-4 text-center">
-                <Image
-                  src={slot.imageSrc}
-                  alt=""
-                  width={640}
-                  height={480}
-                  className="h-auto w-full max-w-[240px]"
-                />
-                <div className="flex flex-col gap-1.5">
+            <Reveal key={slot.title} delay={index * 0.08} className="h-full">
+              <article className="flex h-full flex-col gap-4">
+                <div className="flex h-48 items-end justify-center">
+                  <Image
+                    src={slot.imageSrc}
+                    alt=""
+                    width={640}
+                    height={480}
+                    className="h-full w-auto max-w-full object-contain"
+                  />
+                </div>
+                <div className="flex flex-col gap-1.5 text-left">
                   <p className="text-[17px] font-bold tracking-tight break-keep">
                     {slot.title}
                   </p>

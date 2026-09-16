@@ -39,7 +39,7 @@ export default function LandingFeedback() {
         <div className="grid w-full items-center gap-10 lg:grid-cols-2">
           <Reveal>
             <Image
-              src="/illustrations/feedback-pair.png"
+              src="/illustrations/feedback-pair-clear.png"
               alt=""
               width={1280}
               height={720}

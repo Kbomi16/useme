@@ -62,12 +62,6 @@ export default function AppealCard({ project, className }: AppealCardProps) {
             </li>
           ))}
         </ul>
-        <div
-          aria-hidden="true"
-          className="bg-primary text-primary-foreground mt-auto flex h-10 items-center justify-center rounded-xl text-[13px] font-semibold"
-        >
-          써 보기
-        </div>
       </div>
     </article>
   )

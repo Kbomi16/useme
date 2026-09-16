@@ -3,7 +3,7 @@ import Reveal from "./Reveal"
 
 export default function LandingCtaBand() {
   return (
-    <section className="px-6 py-16 sm:py-20">
+    <section id="landing-cta" className="px-6 py-16 sm:py-20">
       <Reveal>
         <div className="relative mx-auto w-full max-w-5xl rounded-[32px] bg-primary text-white">
           <div className="flex flex-col gap-6 px-6 py-12 text-center sm:px-12">
