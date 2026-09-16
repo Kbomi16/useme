@@ -181,6 +181,15 @@
   animation-delay: 0.4s;
 }
 
+.stagger-pending [data-stagger] {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.stagger-play [data-stagger] {
+  animation: landing-in 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 @keyframes landing-bob {
   0%,
   100% {
@@ -198,7 +207,13 @@
 @media (prefers-reduced-motion: reduce) {
   .chip-marquee-track,
   .landing-in,
-  .landing-scroll-cue {
+  .landing-scroll-cue,
+  .stagger-play [data-stagger] {
     animation: none;
+  }
+
+  .stagger-pending [data-stagger] {
+    opacity: 1;
+    transform: none;
   }
 }

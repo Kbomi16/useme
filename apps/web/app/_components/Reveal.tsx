@@ -45,12 +45,12 @@ export default function Reveal({
 
       gsap.from(element, {
         y: 20,
-        duration: 0.65,
+        duration: 0.9,
         delay,
         ease: "power3.out",
         scrollTrigger: {
           trigger: element,
-          start: "top 85%",
+          start: "top 72%",
           once: true,
         },
       })

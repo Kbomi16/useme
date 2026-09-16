@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-import Reveal from "./Reveal"
+import StaggerReveal from "./StaggerReveal"
 
 const slots = [
   {
@@ -22,44 +22,52 @@ const slots = [
 
 export default function LandingCardExplain() {
   return (
-    <section className="py-16 sm:py-24">
-      <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-12 px-6">
-        <Reveal className="flex max-w-2xl flex-col items-center gap-3 text-center">
-          <h2 className="text-[28px] leading-snug font-bold tracking-tight break-keep sm:text-[34px]">
+    <section id="landing-card-explain" className="py-16 sm:py-24">
+      <StaggerReveal className="mx-auto flex w-full max-w-5xl flex-col items-center gap-12 px-6">
+        <div className="flex max-w-2xl flex-col items-center gap-3 text-center">
+          <h2
+            data-stagger
+            className="text-[28px] leading-snug font-bold tracking-tight break-keep sm:text-[34px]"
+          >
             세 칸만 채우면
             <br />
             카드가 완성돼요
           </h2>
-          <p className="text-muted-foreground text-[17px] leading-relaxed break-keep">
+          <p
+            data-stagger
+            className="text-muted-foreground text-[17px] leading-relaxed break-keep"
+          >
             어필 카드는 단톡에 던지는 한 장이에요. 링크 대신 이 장을 보내요.
           </p>
-        </Reveal>
+        </div>
         <div className="grid w-full gap-10 sm:grid-cols-3">
-          {slots.map((slot, index) => (
-            <Reveal key={slot.title} delay={index * 0.08} className="h-full">
-              <article className="flex h-full flex-col gap-4">
-                <div className="flex h-48 items-end justify-center">
-                  <Image
-                    src={slot.imageSrc}
-                    alt=""
-                    width={640}
-                    height={480}
-                    className="h-full w-auto max-w-full object-contain"
-                  />
-                </div>
-                <div className="flex flex-col gap-1.5 text-left">
-                  <p className="text-[17px] font-bold tracking-tight break-keep">
-                    {slot.title}
-                  </p>
-                  <p className="text-muted-foreground text-[14px] leading-relaxed break-keep">
-                    {slot.body}
-                  </p>
-                </div>
-              </article>
-            </Reveal>
+          {slots.map((slot) => (
+            <article
+              key={slot.title}
+              data-stagger
+              className="flex h-full flex-col gap-4"
+            >
+              <div className="flex h-48 items-end justify-center">
+                <Image
+                  src={slot.imageSrc}
+                  alt=""
+                  width={640}
+                  height={480}
+                  className="h-full w-auto max-w-full object-contain"
+                />
+              </div>
+              <div className="flex flex-col gap-1.5 text-left">
+                <p className="text-[17px] font-bold tracking-tight break-keep">
+                  {slot.title}
+                </p>
+                <p className="text-muted-foreground text-[14px] leading-relaxed break-keep">
+                  {slot.body}
+                </p>
+              </div>
+            </article>
           ))}
         </div>
-      </div>
+      </StaggerReveal>
     </section>
   )
 }

@@ -5,6 +5,8 @@ import Image from "next/image"
 
 import { cn } from "@workspace/ui/lib/utils"
 
+import StaggerReveal from "./StaggerReveal"
+
 const stages = [
   {
     id: "upload",
@@ -69,18 +71,24 @@ export default function LandingSteps() {
   if (!active) return null
 
   return (
-    <section className="py-16 sm:py-24">
+    <section id="landing-steps" className="py-16 sm:py-24">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-6">
-        <div className="flex flex-col items-center gap-3 text-center">
-          <h2 className="text-[28px] leading-snug font-bold tracking-tight break-keep sm:text-[34px]">
+        <StaggerReveal className="flex flex-col items-center gap-3 text-center">
+          <h2
+            data-stagger
+            className="text-[28px] leading-snug font-bold tracking-tight break-keep sm:text-[34px]"
+          >
             올리는 순서는
             <br />
             이 네 단계예요
           </h2>
-          <p className="text-muted-foreground max-w-xl text-[17px] leading-relaxed break-keep">
+          <p
+            data-stagger
+            className="text-muted-foreground max-w-xl text-[17px] leading-relaxed break-keep"
+          >
             올리고, 세 칸 채우고, 한 장으로 뿌리면 써 본 사람이 남겨요.
           </p>
-        </div>
+        </StaggerReveal>
         <div className="grid items-start gap-10 lg:grid-cols-2">
           <div className="lg:sticky lg:top-[max(6rem,calc(50dvh-12rem))]">
             <div className="bg-muted flex min-h-80 w-full items-center justify-center rounded-[28px] px-4 py-8">
