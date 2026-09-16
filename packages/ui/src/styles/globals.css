@@ -181,9 +181,24 @@
   animation-delay: 0.4s;
 }
 
+@keyframes landing-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.landing-scroll-cue {
+  animation: landing-bob 1.6s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .chip-marquee-track,
-  .landing-in {
+  .landing-in,
+  .landing-scroll-cue {
     animation: none;
   }
 }

@@ -7,7 +7,7 @@ export default function LandingProblem() {
   const sample = sampleProjects[0]
 
   return (
-    <section className="py-16 sm:py-24">
+    <section id="landing-problem" className="scroll-mt-20 py-16 sm:py-24">
       <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-12 px-6">
         <Reveal className="flex max-w-2xl flex-col items-center gap-3 text-center">
           <h2 className="text-muted-foreground text-[28px] leading-snug font-bold tracking-tight break-keep sm:text-[34px]">
