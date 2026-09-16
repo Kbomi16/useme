@@ -33,8 +33,8 @@ export default function LandingActions({
         size="lg"
         className={
           onBrand
-            ? "h-12 rounded-2xl bg-white px-6 text-[16px] font-semibold text-primary hover:bg-white/90"
-            : "h-12 rounded-2xl px-6 text-[16px] font-semibold"
+            ? "h-12 rounded-2xl bg-white px-6 text-base font-semibold text-primary hover:bg-white/90"
+            : "h-12 rounded-2xl px-6 text-base font-semibold"
         }
         onClick={handlePublish}
       >
@@ -45,8 +45,8 @@ export default function LandingActions({
         className={cn(
           buttonVariants({ variant: "outline", size: "lg" }),
           onBrand
-            ? "h-12 rounded-2xl border-white/40 bg-transparent px-6 text-[16px] font-semibold text-white hover:bg-white/10 hover:text-white"
-            : "h-12 rounded-2xl px-6 text-[16px] font-semibold"
+            ? "h-12 rounded-2xl border-white/40 bg-transparent px-6 text-base font-semibold text-white hover:bg-white/10 hover:text-white"
+            : "h-12 rounded-2xl px-6 text-base font-semibold"
         )}
       >
         둘러보기

@@ -35,15 +35,14 @@ export default function LandingFeedback() {
           <div className="flex max-w-2xl flex-col items-center gap-3 text-center">
             <h2
               data-stagger
-              className="text-[28px] leading-snug font-bold tracking-tight break-keep sm:text-[34px]"
+              className="text-[28px]/snug font-bold tracking-tight break-keep sm:text-[34px]/snug"
             >
               다른 사람 것도 남기고,
-              <br />
-              내 것도 받아요
+              <br />내 것도 받아요
             </h2>
             <p
               data-stagger
-              className="text-muted-foreground text-[17px] leading-relaxed break-keep"
+              className="text-[17px]/relaxed break-keep text-muted-foreground"
             >
               내 카드만 만드는 곳이 아니에요. 둘러보기에서 만져 보고 한마디를
               남기면,
@@ -57,7 +56,9 @@ export default function LandingFeedback() {
               data-stagger
               className="flex flex-col gap-2 text-center sm:text-left"
             >
-              <p className="text-primary text-[13px] font-semibold">남 카드에</p>
+              <p className="text-[13px] font-semibold text-primary">
+                남 카드에
+              </p>
               <h3 className="text-[22px] font-bold tracking-tight break-keep">
                 먼저 써 보고 남겨요
               </h3>
@@ -67,15 +68,15 @@ export default function LandingFeedback() {
                 <li key={step.title} className="flex flex-col gap-4">
                   <div
                     aria-hidden="true"
-                    className="bg-muted flex min-h-80 items-stretch justify-center overflow-hidden rounded-[28px] px-4 py-6"
+                    className="flex min-h-80 items-stretch justify-center overflow-hidden rounded-[28px] bg-muted px-4 py-6"
                   >
                     <step.Mock />
                   </div>
                   <div className="flex flex-col gap-1 text-center md:text-left">
-                    <p className="text-primary text-[13px] font-semibold">
+                    <p className="text-[13px] font-semibold text-primary">
                       {step.n} · {step.title}
                     </p>
-                    <p className="text-muted-foreground text-[15px] leading-relaxed break-keep">
+                    <p className="text-[15px]/relaxed break-keep text-muted-foreground">
                       {step.body}
                     </p>
                   </div>
@@ -90,18 +91,18 @@ export default function LandingFeedback() {
             data-stagger
             className="flex flex-col gap-2 text-center sm:text-left"
           >
-            <p className="text-primary text-[13px] font-semibold">내 카드로</p>
+            <p className="text-[13px] font-semibold text-primary">내 카드로</p>
             <h3 className="text-[22px] font-bold tracking-tight break-keep">
               뿌려 두면 말이 돌아와요
             </h3>
-            <p className="text-muted-foreground text-[15px] leading-relaxed break-keep">
+            <p className="text-[15px]/relaxed break-keep text-muted-foreground">
               단톡에 같은 장을 보내면, 만져 본 사람이 좋아요나 한마디를 남겨요.
             </p>
           </div>
           <div
             data-stagger
             aria-hidden="true"
-            className="bg-muted flex items-center justify-center overflow-hidden rounded-[28px] px-6 py-10"
+            className="flex items-center justify-center overflow-hidden rounded-[28px] bg-muted px-6 py-10"
           >
             <ReceiveScreenMock />
           </div>

@@ -76,22 +76,21 @@ export default function LandingSteps() {
         <StaggerReveal className="flex flex-col items-center gap-3 text-center">
           <h2
             data-stagger
-            className="text-[28px] leading-snug font-bold tracking-tight break-keep sm:text-[34px]"
+            className="text-[28px]/snug font-bold tracking-tight break-keep sm:text-[34px]/snug"
           >
             올리는 순서는
-            <br />
-            이 네 단계예요
+            <br />이 네 단계예요
           </h2>
           <p
             data-stagger
-            className="text-muted-foreground max-w-xl text-[17px] leading-relaxed break-keep"
+            className="max-w-xl text-[17px]/relaxed break-keep text-muted-foreground"
           >
             올리고, 세 칸 채우고, 한 장으로 뿌리면 써 본 사람이 남겨요.
           </p>
         </StaggerReveal>
         <div className="grid items-start gap-10 lg:grid-cols-2">
           <div className="lg:sticky lg:top-[max(6rem,calc(50dvh-12rem))]">
-            <div className="bg-muted flex min-h-80 w-full items-center justify-center rounded-[28px] px-4 py-8">
+            <div className="flex min-h-80 w-full items-center justify-center rounded-[28px] bg-muted px-4 py-8">
               <Image
                 src={active.imageSrc}
                 alt=""
@@ -104,7 +103,7 @@ export default function LandingSteps() {
           <ol ref={listRef} className="relative flex flex-col">
             <span
               aria-hidden="true"
-              className="bg-border absolute top-6 bottom-6 left-[15px] w-px lg:left-[19px]"
+              className="absolute top-6 bottom-6 left-3.75 w-px bg-border lg:left-4.75"
             />
             {stages.map((stage) => {
               const selected = stage.id === activeId
@@ -124,13 +123,13 @@ export default function LandingSteps() {
                   >
                     {stage.n}
                   </span>
-                  <p className="text-primary text-[13px] font-semibold">
+                  <p className="text-[13px] font-semibold text-primary">
                     {stage.label}
                   </p>
                   <h3 className="mt-1 text-[22px] font-bold tracking-tight break-keep">
                     {stage.title}
                   </h3>
-                  <p className="text-muted-foreground mt-2 text-[16px] leading-relaxed break-keep">
+                  <p className="mt-2 text-base/relaxed break-keep text-muted-foreground">
                     {stage.body}
                   </p>
                 </li>

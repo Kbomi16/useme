@@ -23,7 +23,8 @@ export default function LandingSampleCta() {
       const viewportHeight = window.innerHeight
       const samplesReached =
         samples.getBoundingClientRect().top < viewportHeight * 0.6
-      const bandVisible = band.getBoundingClientRect().top < viewportHeight * 0.85
+      const bandVisible =
+        band.getBoundingClientRect().top < viewportHeight * 0.85
       setVisible(samplesReached && !bandVisible)
     }
 
@@ -47,16 +48,16 @@ export default function LandingSampleCta() {
     >
       <div
         aria-hidden={!visible}
-        className="bg-background flex w-full max-w-2xl items-center gap-3 rounded-full py-2.5 pr-2.5 pl-6 shadow-[0_10px_40px_rgb(15_23_42/0.12)] ring-1 ring-black/8 sm:gap-4 sm:py-3 sm:pr-3 sm:pl-7 dark:ring-white/10"
+        className="flex w-full max-w-2xl items-center gap-3 rounded-full bg-background py-2.5 pr-2.5 pl-6 shadow-[0_10px_40px_rgb(15_23_42/0.12)] ring-1 ring-black/8 sm:gap-4 sm:py-3 sm:pr-3 sm:pl-7 dark:ring-white/10"
       >
-        <p className="min-w-0 flex-1 text-[13px] leading-snug font-semibold tracking-tight break-keep sm:text-[15px]">
+        <p className="min-w-0 flex-1 text-[13px]/snug font-semibold tracking-tight break-keep sm:text-[15px]/snug">
           내 토이 프로젝트도 카드로 만들어볼까요?
         </p>
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <Button
             type="button"
             tabIndex={visible ? 0 : -1}
-            className="h-11 rounded-full px-4 text-[13px] font-semibold sm:h-12 sm:px-5 sm:text-[14px]"
+            className="h-11 rounded-full px-4 text-[13px] font-semibold sm:h-12 sm:px-5 sm:text-sm"
             onClick={handlePublish}
           >
             내 프로젝트 올려보기
@@ -66,7 +67,7 @@ export default function LandingSampleCta() {
             tabIndex={visible ? 0 : -1}
             className={cn(
               buttonVariants({ size: "sm" }),
-              "bg-foreground text-background h-11 rounded-full border-transparent px-4 text-[13px] font-semibold hover:bg-foreground/90 hover:text-background sm:h-12 sm:px-5 sm:text-[14px]"
+              "h-11 rounded-full border-transparent bg-foreground px-4 text-[13px] font-semibold text-background hover:bg-foreground/90 hover:text-background sm:h-12 sm:px-5 sm:text-sm"
             )}
           >
             둘러보기

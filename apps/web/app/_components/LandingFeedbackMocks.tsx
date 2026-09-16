@@ -10,7 +10,7 @@ const incoming = [
 
 export function DiscoverScreenMock() {
   return (
-    <div className="flex h-full w-full max-w-[240px] flex-col overflow-hidden rounded-[22px] bg-background shadow-[0_8px_24px_rgb(15_23_42/0.08)] ring-1 ring-black/5">
+    <div className="flex h-full w-full max-w-60 flex-col overflow-hidden rounded-3xl bg-background shadow-[0_8px_24px_rgb(15_23_42/0.08)] ring-1 ring-black/5">
       <div className="flex items-center justify-between px-3 py-2.5">
         <p className="text-[13px] font-bold tracking-tight">둘러보기</p>
         <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-semibold text-secondary-foreground">
@@ -32,8 +32,8 @@ export function DiscoverScreenMock() {
 
 export function TryScreenMock() {
   return (
-    <div className="flex h-full w-full max-w-[240px] flex-col overflow-hidden rounded-[22px] bg-background shadow-[0_8px_24px_rgb(15_23_42/0.08)] ring-1 ring-black/5">
-      <div className="relative aspect-16/9 bg-muted">
+    <div className="flex h-full w-full max-w-60 flex-col overflow-hidden rounded-3xl bg-background shadow-[0_8px_24px_rgb(15_23_42/0.08)] ring-1 ring-black/5">
+      <div className="relative aspect-video bg-muted">
         <Image
           src={featured.imageSrc}
           alt=""
@@ -46,10 +46,10 @@ export function TryScreenMock() {
         <p className="text-[15px] font-bold tracking-tight break-keep">
           {featured.name}
         </p>
-        <p className="line-clamp-2 text-[12px] leading-snug break-keep text-muted-foreground">
+        <p className="line-clamp-2 text-xs/snug break-keep text-muted-foreground">
           {featured.tagline}
         </p>
-        <div className="flex h-8 items-center justify-center rounded-lg bg-primary text-[12px] font-semibold text-primary-foreground">
+        <div className="flex h-8 items-center justify-center rounded-lg bg-primary text-xs font-semibold text-primary-foreground">
           써 보기
         </div>
       </div>
@@ -59,7 +59,7 @@ export function TryScreenMock() {
 
 export function CommentScreenMock() {
   return (
-    <div className="flex h-full w-full max-w-[240px] flex-col overflow-hidden rounded-[22px] bg-background shadow-[0_8px_24px_rgb(15_23_42/0.08)] ring-1 ring-black/5">
+    <div className="flex h-full w-full max-w-60 flex-col overflow-hidden rounded-3xl bg-background shadow-[0_8px_24px_rgb(15_23_42/0.08)] ring-1 ring-black/5">
       <div className="flex items-center gap-2 px-3 py-2.5">
         <div className="relative size-9 shrink-0 overflow-hidden rounded-lg bg-muted">
           <Image
@@ -75,18 +75,16 @@ export function CommentScreenMock() {
         </p>
       </div>
       <div className="flex flex-1 flex-col justify-end gap-2 px-3 pb-3">
-        <div className="flex h-8 items-center justify-center rounded-lg bg-primary/10 text-[12px] font-semibold text-primary">
+        <div className="flex h-8 items-center justify-center rounded-lg bg-primary/10 text-xs font-semibold text-primary">
           좋아요
         </div>
         <div className="rounded-xl bg-muted px-3 py-2 text-left">
           <p className="text-[11px] font-semibold text-muted-foreground">
             재원
           </p>
-          <p className="text-[12px] leading-snug break-keep">
-            복도 안 돌아도 되네요.
-          </p>
+          <p className="text-xs/snug break-keep">복도 안 돌아도 되네요.</p>
         </div>
-        <div className="rounded-xl px-3 py-2 text-left text-[12px] text-muted-foreground ring-1 ring-black/8">
+        <div className="rounded-xl px-3 py-2 text-left text-xs text-muted-foreground ring-1 ring-black/8">
           한 줄 남기기
         </div>
       </div>
@@ -96,9 +94,9 @@ export function CommentScreenMock() {
 
 export function ReceiveScreenMock() {
   return (
-    <div className="flex w-full max-w-xl flex-col items-center gap-5 sm:flex-row sm:items-center sm:gap-8">
-      <div className="w-full max-w-[280px] overflow-hidden rounded-[22px] bg-background shadow-[0_8px_24px_rgb(15_23_42/0.08)] ring-1 ring-black/5">
-        <div className="relative aspect-16/9 bg-muted">
+    <div className="flex w-full max-w-xl flex-col items-center gap-5 sm:flex-row sm:gap-8">
+      <div className="w-full max-w-70 overflow-hidden rounded-3xl bg-background shadow-[0_8px_24px_rgb(15_23_42/0.08)] ring-1 ring-black/5">
+        <div className="relative aspect-video bg-muted">
           <Image
             src={featured.imageSrc}
             alt=""
@@ -111,20 +109,20 @@ export function ReceiveScreenMock() {
           <p className="text-[15px] font-bold tracking-tight break-keep">
             {featured.name}
           </p>
-          <p className="text-[12px] font-semibold text-primary">좋아요 4</p>
+          <p className="text-xs font-semibold text-primary">좋아요 4</p>
         </div>
       </div>
-      <ul className="flex w-full max-w-[280px] flex-1 flex-col gap-2">
+      <ul className="flex w-full max-w-70 flex-1 flex-col gap-2">
         {incoming.map((note) => (
           <li
             data-stagger
             key={note.name}
-            className="rounded-2xl rounded-bl-md bg-background px-3 py-2.5 text-left shadow-[0_8px_24px_rgb(15_23_42/0.06)] ring-1 ring-black/5"
+            className="rounded-tl-2xl rounded-tr-2xl rounded-br-2xl rounded-bl-md bg-background px-3 py-2.5 text-left shadow-[0_8px_24px_rgb(15_23_42/0.06)] ring-1 ring-black/5"
           >
             <p className="text-[11px] font-semibold text-muted-foreground">
               {note.name}
             </p>
-            <p className="text-[13px] leading-snug break-keep">{note.line}</p>
+            <p className="text-[13px]/snug break-keep">{note.line}</p>
           </li>
         ))}
       </ul>

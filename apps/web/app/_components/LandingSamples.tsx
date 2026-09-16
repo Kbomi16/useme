@@ -10,10 +10,10 @@ export default function LandingSamples() {
           data-stagger
           className="flex max-w-2xl flex-col items-center gap-3 text-center"
         >
-          <h2 className="text-[28px] leading-snug font-bold tracking-tight break-keep sm:text-[34px]">
+          <h2 className="text-[28px]/snug font-bold tracking-tight break-keep sm:text-[34px]/snug">
             이런 카드가 나가요
           </h2>
-          <p className="text-muted-foreground text-[17px] leading-relaxed break-keep">
+          <p className="text-[17px]/relaxed break-keep text-muted-foreground">
             왜, 뭘, 얼마나를 한 장에 담은 예시예요.
           </p>
         </div>

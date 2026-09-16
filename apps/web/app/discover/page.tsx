@@ -4,7 +4,7 @@ export default function DiscoverPage() {
       <h1 className="text-[28px] font-bold tracking-tight break-keep">
         디스커버
       </h1>
-      <p className="text-muted-foreground text-[17px] leading-relaxed break-keep">
+      <p className="text-[17px]/relaxed break-keep text-muted-foreground">
         다른 사람 프로젝트는 여기서 보여요. 목록은 다음에 붙일게요.
       </p>
     </main>

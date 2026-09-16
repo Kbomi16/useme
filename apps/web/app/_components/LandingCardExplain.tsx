@@ -27,7 +27,7 @@ export default function LandingCardExplain() {
         <div className="flex max-w-2xl flex-col items-center gap-3 text-center">
           <h2
             data-stagger
-            className="text-[28px] leading-snug font-bold tracking-tight break-keep sm:text-[34px]"
+            className="text-[28px]/snug font-bold tracking-tight break-keep sm:text-[34px]/snug"
           >
             세 칸만 채우면
             <br />
@@ -35,7 +35,7 @@ export default function LandingCardExplain() {
           </h2>
           <p
             data-stagger
-            className="text-muted-foreground text-[17px] leading-relaxed break-keep"
+            className="text-[17px]/relaxed break-keep text-muted-foreground"
           >
             어필 카드는 단톡에 던지는 한 장이에요. 링크 대신 이 장을 보내요.
           </p>
@@ -60,7 +60,7 @@ export default function LandingCardExplain() {
                 <p className="text-[17px] font-bold tracking-tight break-keep">
                   {slot.title}
                 </p>
-                <p className="text-muted-foreground text-[14px] leading-relaxed break-keep">
+                <p className="text-sm/relaxed break-keep text-muted-foreground">
                   {slot.body}
                 </p>
               </div>
