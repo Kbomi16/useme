@@ -1,4 +1,5 @@
 import Image from "next/image"
+import type { ReactNode } from "react"
 
 import { cn } from "@workspace/ui/lib/utils"
 
@@ -7,6 +8,8 @@ import type { SampleProject } from "./sampleProjects"
 type AppealCardProps = {
   project: SampleProject
   className?: string
+  rank?: number
+  children?: ReactNode
 }
 
 const slots = [
@@ -15,13 +18,48 @@ const slots = [
   { key: "metric", hint: "얼마나" },
 ] as const
 
-export default function AppealCard({ project, className }: AppealCardProps) {
+export function AppealCardBadges({ rank }: { rank?: number }) {
+  return (
+    <>
+      {rank != null ? (
+        <span className="absolute top-3 left-3 z-10 rounded-full bg-primary px-2.5 py-0.5 text-[11px] font-semibold text-primary-foreground">
+          {rank}
+        </span>
+      ) : null}
+      <span className="absolute top-3 right-3 z-10 rounded-full bg-background/90 px-2.5 py-0.5 text-[11px] font-semibold text-primary ring-1 ring-black/5">
+        예시 프로젝트
+      </span>
+    </>
+  )
+}
+
+export function AppealCardSlots({ project }: { project: SampleProject }) {
   const values = {
     problem: project.problem,
     action: project.action,
     metric: project.metric,
   }
 
+  return (
+    <ul className="flex flex-col gap-1.5">
+      {slots.map((slot) => (
+        <li key={slot.key} className="flex items-start gap-2">
+          <span className="mt-0.5 inline-flex shrink-0 rounded-full bg-secondary px-1.5 py-0.5 text-[10px] font-semibold text-secondary-foreground">
+            {slot.hint}
+          </span>
+          <p className="text-[13px]/snug break-keep">{values[slot.key]}</p>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+export default function AppealCard({
+  project,
+  className,
+  rank,
+  children,
+}: AppealCardProps) {
   return (
     <article
       className={cn(
@@ -37,9 +75,7 @@ export default function AppealCard({ project, className }: AppealCardProps) {
           sizes="(min-width: 1024px) 280px, 50vw"
           className="object-contain"
         />
-        <span className="absolute top-3 left-3 z-10 rounded-full bg-background/90 px-2.5 py-0.5 text-[11px] font-semibold text-primary ring-1 ring-black/5">
-          예시 프로젝트
-        </span>
+        <AppealCardBadges rank={rank} />
       </div>
       <div className="flex flex-1 flex-col gap-3 p-4">
         <div className="flex flex-col gap-1">
@@ -50,16 +86,10 @@ export default function AppealCard({ project, className }: AppealCardProps) {
             {project.tagline}
           </p>
         </div>
-        <ul className="flex flex-col gap-1.5">
-          {slots.map((slot) => (
-            <li key={slot.key} className="flex items-start gap-2">
-              <span className="mt-0.5 inline-flex shrink-0 rounded-full bg-secondary px-1.5 py-0.5 text-[10px] font-semibold text-secondary-foreground">
-                {slot.hint}
-              </span>
-              <p className="text-[13px]/snug break-keep">{values[slot.key]}</p>
-            </li>
-          ))}
-        </ul>
+        <AppealCardSlots project={project} />
+        {children ? (
+          <div className="mt-auto flex flex-col gap-3">{children}</div>
+        ) : null}
       </div>
     </article>
   )

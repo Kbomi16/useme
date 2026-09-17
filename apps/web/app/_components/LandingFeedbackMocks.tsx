@@ -1,8 +1,12 @@
 import Image from "next/image"
 
-import { sampleProjects, type SampleProject } from "./sampleProjects"
+import {
+  featuredProject,
+  landingProjects,
+  type SampleProject,
+} from "./sampleProjects"
 
-const featured = sampleProjects[0]!
+const featured = featuredProject
 const incoming = [
   { name: "재원", line: "복도 안 돌아도 되네요." },
   { name: "유미", line: "슬랙에 바로 떠서 바로 썼어요." },
@@ -18,7 +22,7 @@ export function DiscoverScreenMock() {
         </span>
       </div>
       <ul className="flex flex-col gap-1.5 px-2 pb-2">
-        {sampleProjects.map((project, index) => (
+        {landingProjects.map((project, index) => (
           <DiscoverRow
             key={project.name}
             project={project}
