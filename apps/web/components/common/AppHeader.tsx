@@ -9,12 +9,20 @@ export default function AppHeader() {
         <Link href="/" aria-label="useMe 홈">
           <Logo alt="" />
         </Link>
-        <Link
-          href="/discover"
-          className="hover:bg-muted focus-visible:border-ring focus-visible:ring-ring/50 rounded-lg px-3 py-2 text-sm font-medium outline-none focus-visible:ring-3"
-        >
-          둘러보기
-        </Link>
+        <nav className="flex items-center gap-1">
+          <Link
+            href="/discover"
+            className="hover:bg-muted focus-visible:border-ring focus-visible:ring-ring/50 rounded-lg px-3 py-2 text-sm font-medium outline-none focus-visible:ring-3"
+          >
+            둘러보기
+          </Link>
+          <Link
+            href="/upload"
+            className="hover:bg-muted focus-visible:border-ring focus-visible:ring-ring/50 rounded-lg px-3 py-2 text-sm font-medium outline-none focus-visible:ring-3"
+          >
+            올리기
+          </Link>
+        </nav>
       </div>
     </header>
   )
