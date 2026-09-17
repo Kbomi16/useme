@@ -108,11 +108,7 @@ export default function UploadForm() {
             />
           </Field>
         </div>
-        <Button
-          type="submit"
-          size="lg"
-          className="h-12 rounded-2xl px-6 text-base font-semibold sm:self-start"
-        >
+        <Button type="submit" className="sm:self-start">
           카드로 내보내기
         </Button>
       </form>

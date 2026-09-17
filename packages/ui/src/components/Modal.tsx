@@ -120,7 +120,6 @@ export default function Modal({
                     type="button"
                     variant="ghost"
                     size="icon"
-                    className="rounded-lg"
                     onClick={handleToggleFullscreen}
                     aria-label={isFullscreen ? "전체 화면 닫기" : "전체 화면"}
                     aria-pressed={isFullscreen}
@@ -132,7 +131,6 @@ export default function Modal({
                   type="button"
                   variant="ghost"
                   size="icon"
-                  className="rounded-lg"
                   onClick={onClose}
                   aria-label="닫기"
                 >
@@ -182,7 +180,6 @@ function ModalDefaultFooter({
       <Button
         type="button"
         variant="outline"
-        className="h-11 rounded-xl px-5 font-semibold"
         onClick={onClose}
       >
         {cancelText}
@@ -190,7 +187,6 @@ function ModalDefaultFooter({
       {onConfirm ? (
         <Button
           type="button"
-          className="h-11 rounded-xl px-5 font-bold shadow-none"
           onClick={onConfirm}
         >
           {confirmText}

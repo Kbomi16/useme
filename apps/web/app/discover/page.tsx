@@ -1,7 +1,6 @@
 import Link from "next/link"
 
 import { buttonVariants } from "@workspace/ui/components/button"
-import { cn } from "@workspace/ui/lib/utils"
 
 import AppealCard from "../_components/AppealCard"
 import { sampleProjects } from "../_components/sampleProjects"
@@ -19,13 +18,7 @@ export default function DiscoverPage() {
             만져 보고 한마디 남기면 돼요. 지금은 예시 카드예요.
           </p>
         </div>
-        <Link
-          href="/upload"
-          className={cn(
-            buttonVariants({ size: "lg" }),
-            "h-11 rounded-2xl px-5 text-[15px] font-semibold"
-          )}
-        >
+        <Link href="/upload" className={buttonVariants()}>
           내 프로젝트 올려보기
         </Link>
       </div>

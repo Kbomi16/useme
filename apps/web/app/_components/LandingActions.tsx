@@ -24,10 +24,8 @@ export default function LandingActions({
       <Link
         href="/upload"
         className={cn(
-          buttonVariants({ size: "lg" }),
-          onBrand
-            ? "h-12 rounded-2xl bg-white px-6 text-base font-semibold text-primary hover:bg-white/90"
-            : "h-12 rounded-2xl px-6 text-base font-semibold"
+          buttonVariants(),
+          onBrand && "bg-white text-primary hover:bg-white/90"
         )}
       >
         내 프로젝트 올려보기
@@ -35,10 +33,9 @@ export default function LandingActions({
       <Link
         href="/discover"
         className={cn(
-          buttonVariants({ variant: "outline", size: "lg" }),
-          onBrand
-            ? "h-12 rounded-2xl border-white/40 bg-transparent px-6 text-base font-semibold text-white hover:bg-white/10 hover:text-white"
-            : "h-12 rounded-2xl px-6 text-base font-semibold"
+          buttonVariants({ variant: "outline" }),
+          onBrand &&
+            "border-white/40 bg-transparent text-white hover:bg-white/10 hover:text-white"
         )}
       >
         둘러보기

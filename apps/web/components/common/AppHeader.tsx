@@ -1,5 +1,8 @@
 import Link from "next/link"
 
+import { buttonVariants } from "@workspace/ui/components/button"
+import { cn } from "@workspace/ui/lib/utils"
+
 import Logo from "@/components/common/Logo"
 
 export default function AppHeader() {
@@ -12,13 +15,13 @@ export default function AppHeader() {
         <nav className="flex items-center gap-1">
           <Link
             href="/discover"
-            className="hover:bg-muted focus-visible:border-ring focus-visible:ring-ring/50 rounded-lg px-3 py-2 text-sm font-medium outline-none focus-visible:ring-3"
+            className={cn(buttonVariants({ variant: "ghost" }), "h-9")}
           >
             둘러보기
           </Link>
           <Link
             href="/upload"
-            className="hover:bg-muted focus-visible:border-ring focus-visible:ring-ring/50 rounded-lg px-3 py-2 text-sm font-medium outline-none focus-visible:ring-3"
+            className={cn(buttonVariants({ variant: "ghost" }), "h-9")}
           >
             올리기
           </Link>

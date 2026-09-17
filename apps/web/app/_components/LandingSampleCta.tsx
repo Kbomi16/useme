@@ -52,10 +52,7 @@ export default function LandingSampleCta() {
           <Link
             href="/upload"
             tabIndex={visible ? 0 : -1}
-            className={cn(
-              buttonVariants(),
-              "h-11 rounded-full px-4 text-[13px] font-semibold sm:h-12 sm:px-5 sm:text-sm"
-            )}
+            className={buttonVariants()}
           >
             내 프로젝트 올려보기
           </Link>
@@ -63,8 +60,8 @@ export default function LandingSampleCta() {
             href="/discover"
             tabIndex={visible ? 0 : -1}
             className={cn(
-              buttonVariants({ size: "sm" }),
-              "h-11 rounded-full border-transparent bg-foreground px-4 text-[13px] font-semibold text-background hover:bg-foreground/90 hover:text-background sm:h-12 sm:px-5 sm:text-sm"
+              buttonVariants({ variant: "outline" }),
+              "border-transparent bg-foreground text-background hover:bg-foreground/90 hover:text-background"
             )}
           >
             둘러보기
