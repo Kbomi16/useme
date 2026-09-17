@@ -1,9 +1,6 @@
-"use client"
-
 import Link from "next/link"
 
-import { Button, buttonVariants } from "@workspace/ui/components/button"
-import { toast } from "@workspace/ui/components/sonner"
+import { buttonVariants } from "@workspace/ui/components/button"
 import { cn } from "@workspace/ui/lib/utils"
 
 type LandingActionsProps = {
@@ -15,10 +12,6 @@ export default function LandingActions({
   tone = "default",
   className,
 }: LandingActionsProps) {
-  const handlePublish = () => {
-    toast.info("로그인은 다음에 붙일게요.")
-  }
-
   const onBrand = tone === "onBrand"
 
   return (
@@ -28,18 +21,17 @@ export default function LandingActions({
         className
       )}
     >
-      <Button
-        type="button"
-        size="lg"
-        className={
+      <Link
+        href="/upload"
+        className={cn(
+          buttonVariants({ size: "lg" }),
           onBrand
             ? "h-12 rounded-2xl bg-white px-6 text-base font-semibold text-primary hover:bg-white/90"
             : "h-12 rounded-2xl px-6 text-base font-semibold"
-        }
-        onClick={handlePublish}
+        )}
       >
         내 프로젝트 올려보기
-      </Button>
+      </Link>
       <Link
         href="/discover"
         className={cn(
