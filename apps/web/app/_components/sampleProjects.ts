@@ -3,6 +3,10 @@ export type SampleComment = {
   line: string
 }
 
+export const projectCategories = ["생산성", "개발", "생활", "소셜"] as const
+
+export type ProjectCategory = (typeof projectCategories)[number]
+
 export type SampleProject = {
   slug: string
   name: string
@@ -13,6 +17,7 @@ export type SampleProject = {
   imageSrc: string
   likes: number
   comments: SampleComment[]
+  category: ProjectCategory
 }
 
 export const sampleProjects: SampleProject[] = [
@@ -29,6 +34,7 @@ export const sampleProjects: SampleProject[] = [
       { name: "재원", line: "복도 안 돌아도 되네요." },
       { name: "유미", line: "슬랙에 바로 떠서 바로 썼어요." },
     ],
+    category: "생산성",
   },
   {
     slug: "receipt",
@@ -43,6 +49,7 @@ export const sampleProjects: SampleProject[] = [
       { name: "민지", line: "정산 엑셀 안 열어도 되네요." },
       { name: "태호", line: "인원만 고르면 끝나요." },
     ],
+    category: "생활",
   },
   {
     slug: "commits",
@@ -57,6 +64,7 @@ export const sampleProjects: SampleProject[] = [
       { name: "하은", line: "금요일에 이거 열고 붙여요." },
       { name: "준서", line: "회고 빈칸이 안 생겨요." },
     ],
+    category: "개발",
   },
   {
     slug: "lunch",
@@ -71,6 +79,7 @@ export const sampleProjects: SampleProject[] = [
       { name: "소연", line: "단톡이 조용해졌어요." },
       { name: "현우", line: "세 개만 올려도 충분해요." },
     ],
+    category: "소셜",
   },
   {
     slug: "lights",
@@ -85,6 +94,7 @@ export const sampleProjects: SampleProject[] = [
       { name: "다은", line: "꺼졌는지 확인하러 안 돌아가요." },
       { name: "시훈", line: "마지막이면 알림이 와요." },
     ],
+    category: "생산성",
   },
   {
     slug: "meeting",
@@ -99,6 +109,7 @@ export const sampleProjects: SampleProject[] = [
       { name: "지혜", line: "할 일만 남아서 바로 나눠요." },
       { name: "도윤", line: "녹음 다시 안 들어요." },
     ],
+    category: "생산성",
   },
   {
     slug: "oncall",
@@ -113,6 +124,7 @@ export const sampleProjects: SampleProject[] = [
       { name: "나래", line: "위키 안 찾아도 돼요." },
       { name: "성민", line: "이번 주 당번이 한눈에 보여요." },
     ],
+    category: "생산성",
   },
 ]
 
