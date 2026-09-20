@@ -14,16 +14,10 @@ export default function AppHeader() {
         </Link>
         <nav className="flex items-center gap-1">
           <Link
-            href="/discover"
+            href="/login"
             className={cn(buttonVariants({ variant: "ghost" }), "h-9")}
           >
-            둘러보기
-          </Link>
-          <Link
-            href="/upload"
-            className={cn(buttonVariants({ variant: "ghost" }), "h-9")}
-          >
-            올리기
+            로그인/회원가입
           </Link>
         </nav>
       </div>
