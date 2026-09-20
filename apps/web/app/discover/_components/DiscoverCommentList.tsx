@@ -16,12 +16,20 @@ export default function DiscoverCommentList({
       {comments.map((comment) => (
         <li
           key={`${comment.name}-${comment.line}`}
-          className="rounded-2xl bg-muted/70 px-3 py-2.5"
+          className="flex items-center gap-2.5"
         >
-          <p className="text-[11px] font-semibold text-muted-foreground">
-            {comment.name}
-          </p>
-          <p className="text-[13px]/snug break-keep">{comment.line}</p>
+          <span
+            aria-hidden
+            className="flex size-8 shrink-0 items-center justify-center rounded-full bg-muted text-[12px] font-semibold text-muted-foreground"
+          >
+            {comment.name.slice(0, 1)}
+          </span>
+          <div className="min-w-0">
+            <p className="text-[11px] font-semibold text-muted-foreground">
+              {comment.name}
+            </p>
+            <p className="text-[13px]/snug break-keep">{comment.line}</p>
+          </div>
         </li>
       ))}
     </ul>

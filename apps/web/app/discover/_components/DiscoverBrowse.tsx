@@ -13,7 +13,6 @@ import { type SampleProject } from "../../_components/sampleProjects"
 import DiscoverCategoryNav, {
   type DiscoverCategoryFilter,
 } from "./DiscoverCategoryNav"
-import DiscoverCommentList from "./DiscoverCommentList"
 import DiscoverFeaturedCard from "./DiscoverFeaturedCard"
 import DiscoverProjectActions from "./DiscoverProjectActions"
 
@@ -125,14 +124,7 @@ export default function DiscoverBrowse({
                 오늘의 카드
               </h2>
               <DiscoverFeaturedCard project={featuredMatch}>
-                <DiscoverCommentList
-                  comments={featuredMatch.comments}
-                  className="md:grid md:grid-cols-2"
-                />
-                <DiscoverProjectActions
-                  slug={featuredMatch.slug}
-                  className="max-w-sm"
-                />
+                <DiscoverProjectActions slug={featuredMatch.slug} />
               </DiscoverFeaturedCard>
             </section>
           ) : null}

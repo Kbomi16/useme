@@ -26,14 +26,14 @@ export default function DiscoverFeaturedCard({
           sizes="(min-width: 768px) 352px, 100vw"
           className="object-contain"
         />
-        <AppealCardBadges rank={1} />
+        <AppealCardBadges />
       </div>
-      <div className="flex min-w-0 flex-1 flex-col gap-3 p-4 md:p-6">
-        <div className="flex flex-col gap-1">
-          <h3 className="text-xl/snug font-bold tracking-tight break-keep">
+      <div className="flex min-w-0 flex-1 flex-col gap-4 p-5 md:p-7">
+        <div className="flex flex-col gap-1.5">
+          <h3 className="text-2xl/snug font-bold tracking-tight break-keep">
             {project.name}
           </h3>
-          <p className="text-[13px]/relaxed break-keep text-muted-foreground">
+          <p className="text-sm/relaxed break-keep text-muted-foreground">
             {project.tagline}
           </p>
         </div>

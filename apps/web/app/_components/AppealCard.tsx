@@ -33,7 +33,13 @@ export function AppealCardBadges({ rank }: { rank?: number }) {
   )
 }
 
-export function AppealCardSlots({ project }: { project: SampleProject }) {
+export function AppealCardSlots({
+  project,
+  className,
+}: {
+  project: SampleProject
+  className?: string
+}) {
   const values = {
     problem: project.problem,
     action: project.action,
@@ -41,13 +47,16 @@ export function AppealCardSlots({ project }: { project: SampleProject }) {
   }
 
   return (
-    <ul className="flex flex-col gap-1.5">
+    <ul className={cn("flex flex-col gap-1.5", className)}>
       {slots.map((slot) => (
-        <li key={slot.key} className="flex items-start gap-2">
-          <span className="mt-0.5 inline-flex shrink-0 rounded-full bg-secondary px-1.5 py-0.5 text-[10px] font-semibold text-secondary-foreground">
+        <li
+          key={slot.key}
+          className="flex items-start gap-2.5 rounded-2xl bg-muted/80 px-3 py-2.5"
+        >
+          <span className="mt-px inline-flex h-5 w-14 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[11px] font-semibold text-primary">
             {slot.hint}
           </span>
-          <p className="text-[13px]/snug break-keep">{values[slot.key]}</p>
+          <p className="text-sm/snug break-keep">{values[slot.key]}</p>
         </li>
       ))}
     </ul>

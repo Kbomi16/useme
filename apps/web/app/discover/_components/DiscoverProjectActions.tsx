@@ -16,10 +16,13 @@ export default function DiscoverProjectActions({
 }: DiscoverProjectActionsProps) {
   return (
     <div className={cn("grid grid-cols-2 gap-2", className)}>
-      <DiscoverTryButton className="w-full" />
+      <DiscoverTryButton className="w-full rounded-xl" />
       <Link
         href={`/project/${slug}`}
-        className={cn(buttonVariants({ variant: "outline" }), "w-full")}
+        className={cn(
+          buttonVariants({ variant: "outline" }),
+          "w-full rounded-xl"
+        )}
       >
         더 보기
       </Link>
