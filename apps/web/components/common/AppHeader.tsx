@@ -1,11 +1,12 @@
 import Link from "next/link"
 
-import { buttonVariants } from "@workspace/ui/components/button"
-import { cn } from "@workspace/ui/lib/utils"
-
 import Logo from "@/components/common/Logo"
+import AppHeaderAuth from "@/components/common/AppHeaderAuth"
+import { getAuthUser } from "@/libs/auth/getAuthUser"
 
-export default function AppHeader() {
+export default async function AppHeader() {
+  const user = await getAuthUser()
+
   return (
     <header className="bg-background/80 sticky top-0 z-40 border-b backdrop-blur-md">
       <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-6 py-3">
@@ -13,12 +14,7 @@ export default function AppHeader() {
           <Logo alt="" />
         </Link>
         <nav className="flex items-center gap-1">
-          <Link
-            href="/login"
-            className={cn(buttonVariants({ variant: "ghost" }), "h-9")}
-          >
-            로그인/회원가입
-          </Link>
+          <AppHeaderAuth user={user} />
         </nav>
       </div>
     </header>
