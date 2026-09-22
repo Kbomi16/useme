@@ -88,8 +88,8 @@ export default function LandingSteps() {
             올리고, 세 칸 채우고, 한 장으로 뿌리면 써 본 사람이 남겨요.
           </p>
         </StaggerReveal>
-        <div className="grid items-start gap-10 lg:grid-cols-2">
-          <div className="lg:sticky lg:top-[max(6rem,calc(50dvh-12rem))]">
+        <div className="flex flex-col gap-10 lg:grid lg:grid-cols-2 lg:items-start">
+          <div className="hidden lg:sticky lg:top-[max(6rem,calc(50dvh-12rem))] lg:block">
             <div className="flex min-h-80 w-full items-center justify-center rounded-[28px] bg-muted px-4 py-8">
               <Image
                 src={active.imageSrc}
@@ -103,7 +103,7 @@ export default function LandingSteps() {
           <ol ref={listRef} className="relative flex flex-col">
             <span
               aria-hidden="true"
-              className="absolute top-6 bottom-6 left-3.75 w-px bg-border lg:left-4.75"
+              className="absolute top-6 bottom-6 left-3.75 hidden w-px bg-border lg:block lg:left-4.75"
             />
             {stages.map((stage) => {
               const selected = stage.id === activeId
@@ -111,27 +111,40 @@ export default function LandingSteps() {
                 <li
                   key={stage.id}
                   data-step={stage.id}
-                  className="relative min-h-[48vh] py-8 pl-12 lg:min-h-[42vh]"
+                  className="relative flex flex-col gap-4 py-8 lg:min-h-[42vh] lg:pl-12"
                 >
-                  <span
-                    className={cn(
-                      "absolute top-8 left-0 inline-flex size-8 items-center justify-center rounded-full text-[13px] font-bold lg:size-10 lg:text-[15px]",
-                      selected
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-muted text-muted-foreground"
-                    )}
-                  >
-                    {stage.n}
-                  </span>
-                  <p className="text-[13px] font-semibold text-primary">
-                    {stage.label}
-                  </p>
-                  <h3 className="mt-1 text-[22px] font-bold tracking-tight break-keep">
-                    {stage.title}
-                  </h3>
-                  <p className="mt-2 text-base/relaxed break-keep text-muted-foreground">
-                    {stage.body}
-                  </p>
+                  <div className="flex min-h-52 items-center justify-center rounded-[28px] bg-muted px-4 py-8 lg:hidden">
+                    <Image
+                      src={stage.imageSrc}
+                      alt=""
+                      width={720}
+                      height={720}
+                      className="h-auto w-full max-w-xs"
+                    />
+                  </div>
+                  <div className="flex gap-3 lg:block">
+                    <span
+                      className={cn(
+                        "inline-flex size-8 shrink-0 items-center justify-center rounded-full text-[13px] font-bold lg:absolute lg:top-8 lg:left-0 lg:size-10 lg:text-[15px]",
+                        selected
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-muted text-muted-foreground"
+                      )}
+                    >
+                      {stage.n}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-[13px] font-semibold text-primary">
+                        {stage.label}
+                      </p>
+                      <h3 className="mt-1 text-[22px] font-bold tracking-tight break-keep">
+                        {stage.title}
+                      </h3>
+                      <p className="mt-2 text-base/relaxed break-keep text-muted-foreground">
+                        {stage.body}
+                      </p>
+                    </div>
+                  </div>
                 </li>
               )
             })}

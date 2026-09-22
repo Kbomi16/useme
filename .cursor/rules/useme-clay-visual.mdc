@@ -1,0 +1,16 @@
+---
+description: useMe 3D 클레이 일러스트·아이콘 제작·표시 기준 (토스 톤, 에셋 복사 금지)
+alwaysApply: true
+---
+
+# useMe 3D 클레이 비주얼
+
+새 **일러스트, 카테고리 아이콘, 홍보 배너 장식**을 만들 때 이 톤을 따른다.
+
+- **스타일:** 토스처럼 보이는 **3D 클레이** — 둥근 형태, matte plastic, soft studio light, subtle contact shadow. 플at 2D·얇은 라인 아이콘으로 대체하지 않는다.
+- **브랜드:** primary 보라(`#7960A9`)와 맞춘 포인트. 타 서비스(토스·패캠 등) **로고·아이콘·할인 배너**를 복사하지 않는다.
+- **에셋:** `apps/web/public/illustrations/`에 PNG. `clay-*` 또는 `category-*` 명명.
+- **Next Image:** 일러스트 PNG는 **선명도 우선** — `unoptimized` 또는 `quality={100}`과 표시 크기의 **2배 이상** intrinsic width + 맞는 `sizes`.
+- **탭/카테고리 UI:** 아이콘 + 짧은 라벨. 선택 상태는 과한 `bg-primary/10` 박스보다 **텍스트 대비** 위주.
+
+상세·카테고리 motif: 보미 personal store `useme-visual-style.md`.

@@ -1,6 +1,6 @@
 import AppealCard from "./AppealCard"
 import StaggerReveal from "./StaggerReveal"
-import { sampleProjects } from "./sampleProjects"
+import { landingProjects } from "./sampleProjects"
 
 export default function LandingSamples() {
   return (
@@ -18,7 +18,7 @@ export default function LandingSamples() {
           </p>
         </div>
         <div className="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {sampleProjects.map((project) => (
+          {landingProjects.map((project) => (
             <div key={project.name} data-stagger>
               <AppealCard project={project} />
             </div>

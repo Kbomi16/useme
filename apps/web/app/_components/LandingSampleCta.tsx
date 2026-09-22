@@ -3,16 +3,11 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 
-import { Button, buttonVariants } from "@workspace/ui/components/button"
-import { toast } from "@workspace/ui/components/sonner"
+import { buttonVariants } from "@workspace/ui/components/button"
 import { cn } from "@workspace/ui/lib/utils"
 
 export default function LandingSampleCta() {
   const [visible, setVisible] = useState(false)
-
-  const handlePublish = () => {
-    toast.info("로그인은 다음에 붙일게요.")
-  }
 
   useEffect(() => {
     const samples = document.getElementById("sample-cards")
@@ -54,20 +49,19 @@ export default function LandingSampleCta() {
           내 토이 프로젝트도 카드로 만들어볼까요?
         </p>
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-          <Button
-            type="button"
+          <Link
+            href="/upload"
             tabIndex={visible ? 0 : -1}
-            className="h-11 rounded-full px-4 text-[13px] font-semibold sm:h-12 sm:px-5 sm:text-sm"
-            onClick={handlePublish}
+            className={buttonVariants()}
           >
             내 프로젝트 올려보기
-          </Button>
+          </Link>
           <Link
             href="/discover"
             tabIndex={visible ? 0 : -1}
             className={cn(
-              buttonVariants({ size: "sm" }),
-              "h-11 rounded-full border-transparent bg-foreground px-4 text-[13px] font-semibold text-background hover:bg-foreground/90 hover:text-background sm:h-12 sm:px-5 sm:text-sm"
+              buttonVariants({ variant: "outline" }),
+              "border-transparent bg-foreground text-background hover:bg-foreground/90 hover:text-background"
             )}
           >
             둘러보기

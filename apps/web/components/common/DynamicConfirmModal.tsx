@@ -49,7 +49,7 @@ export default function DynamicConfirmModal({
   isLoading = false,
 }: DynamicConfirmModalProps) {
   const actionButtonClassName = cn(
-    "h-11 w-full rounded-xl font-semibold shadow-none",
+    "w-full",
     variant === "destructive" &&
       "bg-destructive text-white hover:bg-destructive/90 hover:text-white focus-visible:border-destructive/40 focus-visible:ring-destructive/20"
   )
@@ -90,7 +90,7 @@ export default function DynamicConfirmModal({
             <AlertDialogCancel
               disabled={isLoading}
               variant="outline"
-              className="h-11 w-full rounded-xl border-border bg-background font-semibold text-foreground shadow-none hover:bg-muted"
+              className="w-full"
             >
               {cancelText}
             </AlertDialogCancel>
