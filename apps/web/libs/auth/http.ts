@@ -14,3 +14,19 @@ export const parseCredentials = (value: unknown) => {
 
   return { email: trimmedEmail, password }
 }
+
+export const parseSignUpBody = (value: unknown) => {
+  const credentials = parseCredentials(value)
+
+  if (!credentials || !value || typeof value !== "object") return null
+
+  const name = "name" in value ? value.name : null
+
+  if (typeof name !== "string") return null
+
+  const trimmedName = name.trim()
+
+  if (!trimmedName) return null
+
+  return { ...credentials, name: trimmedName }
+}

@@ -1,5 +1,5 @@
 import { createClient } from "@/libs/supabase/server"
-import { jsonError, parseCredentials } from "@/libs/auth/http"
+import { jsonError, parseSignUpBody } from "@/libs/auth/http"
 
 export const POST = async (request: Request) => {
   const supabase = await createClient()
@@ -8,18 +8,36 @@ export const POST = async (request: Request) => {
     return jsonError("인증 서버가 아직 연결되지 않았어요.", 503)
   }
 
-  const credentials = parseCredentials(await request.json().catch(() => null))
+  const body = parseSignUpBody(await request.json().catch(() => null))
 
-  if (!credentials) {
-    return jsonError("이메일과 비밀번호 여섯 글자 이상을 넣어 주세요.", 400)
+  if (!body) {
+    return jsonError(
+      "이름, 이메일, 비밀번호 여섯 글자 이상을 넣어 주세요.",
+      400
+    )
   }
 
   const { data, error } = await supabase.auth.signUp({
-    email: credentials.email,
-    password: credentials.password,
+    email: body.email,
+    password: body.password,
+    options: {
+      data: {
+        full_name: body.name,
+        name: body.name,
+      },
+    },
   })
 
   if (error) {
+    console.error("[auth/sign-up]", error.message, error.code, error.status)
+
+    if (error.code === "over_email_send_rate_limit") {
+      return jsonError(
+        "인증 메일을 너무 많이 보냈어요. 잠시 후 다시 시도하거나, Confirm email을 끄고 가입해 주세요.",
+        429
+      )
+    }
+
     return jsonError("이 이메일로는 가입할 수 없어요.", 400)
   }
 

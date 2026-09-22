@@ -36,7 +36,7 @@ returns trigger
 language plpgsql
 security definer
 set search_path = ''
-as $$
+as $handle_new_user$
 declare
   meta_name text;
   base_username text;
@@ -51,13 +51,13 @@ begin
   );
 
   base_username := left(
-    regexp_replace(lower(meta_name), '[^a-z0-9]+', '_ 'g'),
+    regexp_replace(lower(meta_name), '[^a-z0-9]+', '_', 'g'),
     24
   );
   base_username := trim(both '_' from base_username);
 
   if base_username is null or base_username = '' then
-    base_username := 'user_' || substr(replace(new.id::text, '-', ''), 1, 8);
+    base_username := 'user_' || substr(replace(new.id::text, chr(45), ''), 1, 8);
   end if;
 
   final_username := base_username;
@@ -76,7 +76,7 @@ begin
 
   return new;
 end;
-$$;
+$handle_new_user$;
 
 revoke all on function private.handle_new_user() from public;
 grant usage on schema private to supabase_auth_admin;

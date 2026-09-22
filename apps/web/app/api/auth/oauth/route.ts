@@ -1,14 +1,8 @@
 import { NextResponse } from "next/server"
 
+import { isOAuthProvider } from "@/libs/auth/oauth"
 import { getSafeNextPath } from "@/libs/supabase/env"
 import { createClient } from "@/libs/supabase/server"
-
-const oauthProviders = ["google", "kakao"] as const
-
-type OAuthProvider = (typeof oauthProviders)[number]
-
-const isOAuthProvider = (value: string): value is OAuthProvider =>
-  oauthProviders.includes(value as OAuthProvider)
 
 export const GET = async (request: Request) => {
   const requestUrl = new URL(request.url)

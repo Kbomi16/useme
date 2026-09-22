@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, type FormEvent } from "react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
@@ -11,9 +12,13 @@ import { Label } from "@workspace/ui/components/label"
 import { cn } from "@workspace/ui/lib/utils"
 
 import { httpClient } from "@/libs/httpClient"
+import type { OAuthProvider } from "@/libs/auth/oauth"
 import type { AuthMode, SignUpResponse } from "@/libs/auth/types"
 
+import OAuthButtons from "./OAuthButtons"
+
 type LoginFormProps = {
+  mode: AuthMode
   nextPath: string
   errorMessage?: string
 }
@@ -34,10 +39,15 @@ const getErrorMessage = (error: unknown, fallback: string) => {
   return fallback
 }
 
-export default function LoginForm({ nextPath, errorMessage }: LoginFormProps) {
-  const [mode, setMode] = useState<AuthMode>("login")
+export default function LoginForm({
+  mode,
+  nextPath,
+  errorMessage,
+}: LoginFormProps) {
+  const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [passwordConfirm, setPasswordConfirm] = useState("")
   const [notice, setNotice] = useState(errorMessage ?? "")
   const [noticeKind, setNoticeKind] = useState<"error" | "info">(
     errorMessage ? "error" : "info"
@@ -67,7 +77,7 @@ export default function LoginForm({ nextPath, errorMessage }: LoginFormProps) {
 
   // ! [POST] 회원가입
   const signUpMutation = useMutation({
-    mutationFn: (payload: { email: string; password: string }) =>
+    mutationFn: (payload: { name: string; email: string; password: string }) =>
       httpClient
         .post<SignUpResponse>("/auth/sign-up", payload)
         .then((response) => response.data),
@@ -88,9 +98,19 @@ export default function LoginForm({ nextPath, errorMessage }: LoginFormProps) {
   })
 
   const handleSignUp = () => {
+    if (password !== passwordConfirm) {
+      setNoticeKind("error")
+      setNotice("비밀번호 확인이 일치하지 않아요.")
+      return
+    }
+
     setNotice("")
     setNoticeKind("info")
-    signUpMutation.mutate({ email, password })
+    signUpMutation.mutate({
+      name: name.trim(),
+      email,
+      password,
+    })
   }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -103,13 +123,7 @@ export default function LoginForm({ nextPath, errorMessage }: LoginFormProps) {
     handleSignUp()
   }
 
-  const handleSelectMode = (nextMode: AuthMode) => {
-    setMode(nextMode)
-    setNotice("")
-    setNoticeKind("info")
-  }
-
-  const handleOAuth = (provider: "google" | "kakao") => {
+  const handleOAuth = (provider: OAuthProvider) => {
     const params = new URLSearchParams({
       provider,
       next: nextPath,
@@ -119,36 +133,26 @@ export default function LoginForm({ nextPath, errorMessage }: LoginFormProps) {
 
   const isPending = signInMutation.isPending || signUpMutation.isPending
 
-  return (
-    <div className="flex max-w-md flex-col gap-6">
-      <div className="flex gap-1 rounded-xl bg-muted p-1">
-        <button
-          type="button"
-          className={cn(
-            "flex-1 cursor-pointer rounded-lg px-3 py-2 text-sm font-medium",
-            mode === "login"
-              ? "bg-background text-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground"
-          )}
-          onClick={() => handleSelectMode("login")}
-        >
-          로그인
-        </button>
-        <button
-          type="button"
-          className={cn(
-            "flex-1 cursor-pointer rounded-lg px-3 py-2 text-sm font-medium",
-            mode === "signup"
-              ? "bg-background text-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground"
-          )}
-          onClick={() => handleSelectMode("signup")}
-        >
-          회원가입
-        </button>
-      </div>
+  const fieldClassName = "h-11 rounded-lg"
 
+  return (
+    <div className="flex w-full flex-col gap-6 text-left">
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        {mode === "signup" ? (
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="auth-name">이름</Label>
+            <Input
+              id="auth-name"
+              type="text"
+              autoComplete="name"
+              value={name}
+              placeholder="보미"
+              className={fieldClassName}
+              required
+              onChange={(event) => setName(event.currentTarget.value)}
+            />
+          </div>
+        ) : null}
         <div className="flex flex-col gap-2">
           <Label htmlFor="auth-email">이메일</Label>
           <Input
@@ -157,6 +161,7 @@ export default function LoginForm({ nextPath, errorMessage }: LoginFormProps) {
             autoComplete="email"
             value={email}
             placeholder="you@example.com"
+            className={fieldClassName}
             required
             onChange={(event) => setEmail(event.currentTarget.value)}
           />
@@ -166,26 +171,53 @@ export default function LoginForm({ nextPath, errorMessage }: LoginFormProps) {
           <Input
             id="auth-password"
             type="password"
-            autoComplete={mode === "login" ? "current-password" : "new-password"}
+            autoComplete={
+              mode === "login" ? "current-password" : "new-password"
+            }
             value={password}
             placeholder="여섯 글자 이상"
+            className={fieldClassName}
             minLength={6}
             required
             onChange={(event) => setPassword(event.currentTarget.value)}
           />
         </div>
+        {mode === "signup" ? (
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="auth-password-confirm">비밀번호 확인</Label>
+            <Input
+              id="auth-password-confirm"
+              type="password"
+              autoComplete="new-password"
+              value={passwordConfirm}
+              placeholder="비밀번호를 다시 입력해 주세요"
+              className={fieldClassName}
+              minLength={6}
+              required
+              onChange={(event) =>
+                setPasswordConfirm(event.currentTarget.value)
+              }
+            />
+          </div>
+        ) : null}
         {notice ? (
           <p
             className={cn(
               "text-sm break-keep",
-              noticeKind === "error" ? "text-destructive" : "text-muted-foreground"
+              noticeKind === "error"
+                ? "text-destructive"
+                : "text-muted-foreground"
             )}
             role="status"
           >
             {notice}
           </p>
         ) : null}
-        <Button type="submit" className="w-full rounded-xl" disabled={isPending}>
+        <Button
+          type="submit"
+          className={cn("w-full", fieldClassName)}
+          disabled={isPending}
+        >
           {mode === "login" ? "로그인" : "가입하기"}
         </Button>
       </form>
@@ -196,26 +228,39 @@ export default function LoginForm({ nextPath, errorMessage }: LoginFormProps) {
         <span className="h-px flex-1 bg-border" />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <Button
-          type="button"
-          variant="outline"
-          className="w-full rounded-xl"
-          disabled={isPending}
-          onClick={() => handleOAuth("google")}
-        >
-          Google로 계속
-        </Button>
-        <Button
-          type="button"
-          variant="outline"
-          className="w-full rounded-xl"
-          disabled={isPending}
-          onClick={() => handleOAuth("kakao")}
-        >
-          카카오로 계속
-        </Button>
-      </div>
+      <OAuthButtons disabled={isPending} onSelect={handleOAuth} />
+
+      <p className="text-center text-sm break-keep text-muted-foreground">
+        {mode === "login" ? (
+          <>
+            회원이 아니신가요?{" "}
+            <Link
+              href={
+                nextPath === "/"
+                  ? "/signup"
+                  : `/signup?next=${encodeURIComponent(nextPath)}`
+              }
+              className="font-medium text-primary underline-offset-4 hover:underline"
+            >
+              회원가입하기
+            </Link>
+          </>
+        ) : (
+          <>
+            이미 회원이신가요?{" "}
+            <Link
+              href={
+                nextPath === "/"
+                  ? "/login"
+                  : `/login?next=${encodeURIComponent(nextPath)}`
+              }
+              className="font-medium text-primary underline-offset-4 hover:underline"
+            >
+              로그인하기
+            </Link>
+          </>
+        )}
+      </p>
     </div>
   )
 }
