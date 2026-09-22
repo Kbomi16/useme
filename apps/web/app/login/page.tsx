@@ -1,4 +1,4 @@
-import LoginForm from "./_components/LoginForm"
+import SignInForm from "./_components/SignInForm"
 import { getSafeNextPath } from "@/libs/supabase/env"
 
 type LoginPageProps = {
@@ -21,8 +21,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
             로그인하고 카드 올리거나, 다른 사람 것도 써 보러 가요.
           </p>
         </div>
-        <LoginForm
-          mode="login"
+        <SignInForm
           nextPath={getSafeNextPath(params.next)}
           errorMessage={params.error}
         />

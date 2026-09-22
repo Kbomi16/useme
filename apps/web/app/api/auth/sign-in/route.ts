@@ -10,11 +10,11 @@ export const POST = async (request: Request) => {
 
   const credentials = parseCredentials(await request.json().catch(() => null))
 
-  if (!credentials) {
-    return jsonError("이메일과 비밀번호 여섯 글자 이상을 넣어 주세요.", 400)
+  if (!credentials.ok) {
+    return jsonError(credentials.message, 400)
   }
 
-  const { error } = await supabase.auth.signInWithPassword(credentials)
+  const { error } = await supabase.auth.signInWithPassword(credentials.data)
 
   if (error) {
     return jsonError("이메일 또는 비밀번호가 맞지 않아요.", 401)

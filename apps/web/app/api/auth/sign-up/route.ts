@@ -10,20 +10,17 @@ export const POST = async (request: Request) => {
 
   const body = parseSignUpBody(await request.json().catch(() => null))
 
-  if (!body) {
-    return jsonError(
-      "이름, 이메일, 비밀번호 여섯 글자 이상을 넣어 주세요.",
-      400
-    )
+  if (!body.ok) {
+    return jsonError(body.message, 400)
   }
 
   const { data, error } = await supabase.auth.signUp({
-    email: body.email,
-    password: body.password,
+    email: body.data.email,
+    password: body.data.password,
     options: {
       data: {
-        full_name: body.name,
-        name: body.name,
+        full_name: body.data.name,
+        name: body.data.name,
       },
     },
   })

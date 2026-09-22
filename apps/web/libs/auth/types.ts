@@ -1,5 +1,3 @@
-export type AuthMode = "login" | "signup"
-
 export type SignUpResponse = {
   ok: true
   needsEmailConfirm: boolean

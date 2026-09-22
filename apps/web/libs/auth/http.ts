@@ -1,32 +1,41 @@
+import { signInSchema, signUpRequestSchema } from "@/libs/auth/schema"
+
 export const jsonError = (message: string, status: number) =>
   Response.json({ message }, { status })
 
+const firstIssueMessage = (
+  issues: { message: string }[],
+  fallback: string
+) => issues[0]?.message ?? fallback
+
 export const parseCredentials = (value: unknown) => {
-  if (!value || typeof value !== "object") return null
+  const parsed = signInSchema.safeParse(value)
 
-  const email = "email" in value ? value.email : null
-  const password = "password" in value ? value.password : null
+  if (!parsed.success) {
+    return {
+      ok: false as const,
+      message: firstIssueMessage(
+        parsed.error.issues,
+        "이메일과 비밀번호를 확인해 주세요."
+      ),
+    }
+  }
 
-  if (typeof email !== "string" || typeof password !== "string") return null
-
-  const trimmedEmail = email.trim()
-  if (!trimmedEmail || password.length < 6) return null
-
-  return { email: trimmedEmail, password }
+  return { ok: true as const, data: parsed.data }
 }
 
 export const parseSignUpBody = (value: unknown) => {
-  const credentials = parseCredentials(value)
+  const parsed = signUpRequestSchema.safeParse(value)
 
-  if (!credentials || !value || typeof value !== "object") return null
+  if (!parsed.success) {
+    return {
+      ok: false as const,
+      message: firstIssueMessage(
+        parsed.error.issues,
+        "이름, 이메일, 비밀번호를 확인해 주세요."
+      ),
+    }
+  }
 
-  const name = "name" in value ? value.name : null
-
-  if (typeof name !== "string") return null
-
-  const trimmedName = name.trim()
-
-  if (!trimmedName) return null
-
-  return { ...credentials, name: trimmedName }
+  return { ok: true as const, data: parsed.data }
 }

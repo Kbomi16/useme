@@ -1,4 +1,4 @@
-import LoginForm from "@/app/login/_components/LoginForm"
+import SignUpForm from "./_components/SignUpForm"
 import { getSafeNextPath } from "@/libs/supabase/env"
 
 type SignUpPageProps = {
@@ -21,8 +21,7 @@ export default async function SignUpPage({ searchParams }: SignUpPageProps) {
             가입하고 카드 한 장 만들어 단톡에 던져 보세요.
           </p>
         </div>
-        <LoginForm
-          mode="signup"
+        <SignUpForm
           nextPath={getSafeNextPath(params.next)}
           errorMessage={params.error}
         />
