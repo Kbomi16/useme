@@ -34,7 +34,9 @@ export const proxy = async (request: NextRequest) => {
   const isSignedIn = Boolean(data?.claims)
   const { pathname } = request.nextUrl
 
-  if (pathname === "/upload" && !isSignedIn) {
+  const authRequiredPaths = ["/upload", "/me"]
+
+  if (authRequiredPaths.includes(pathname) && !isSignedIn) {
     const loginUrl = request.nextUrl.clone()
     loginUrl.pathname = "/login"
     loginUrl.searchParams.set("next", getSafeNextPath(pathname))

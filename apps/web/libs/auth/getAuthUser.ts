@@ -19,6 +19,10 @@ export const getAuthUser = async (): Promise<AuthUser | null> => {
     .eq("id", userId)
     .maybeSingle<{ display_name: string; username: string }>()
 
+  const username =
+    profile?.username ??
+    (typeof userId === "string" ? userId.slice(0, 8) : "user")
+
   const displayName =
     profile?.display_name ||
     profile?.username ||
@@ -27,6 +31,7 @@ export const getAuthUser = async (): Promise<AuthUser | null> => {
   return {
     id: userId,
     email: typeof emailClaim === "string" ? emailClaim : null,
+    username,
     displayName,
   }
 }
