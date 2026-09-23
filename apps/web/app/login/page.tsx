@@ -22,7 +22,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           </p>
         </div>
         <SignInForm
-          nextPath={getSafeNextPath(params.next)}
+          nextPath={getSafeNextPath(params.next, "/discover")}
           errorMessage={params.error}
         />
       </div>

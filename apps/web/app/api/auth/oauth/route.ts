@@ -8,6 +8,8 @@ export const GET = async (request: Request) => {
   const requestUrl = new URL(request.url)
   const provider = requestUrl.searchParams.get("provider") ?? ""
   const next = getSafeNextPath(requestUrl.searchParams.get("next"))
+  const intent =
+    requestUrl.searchParams.get("intent") === "signup" ? "signup" : "login"
   const loginUrl = new URL("/login", requestUrl.origin)
 
   if (!isOAuthProvider(provider)) {
@@ -25,7 +27,7 @@ export const GET = async (request: Request) => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
     options: {
-      redirectTo: `${requestUrl.origin}/auth/callback?next=${encodeURIComponent(next)}`,
+      redirectTo: `${requestUrl.origin}/auth/callback?next=${encodeURIComponent(next)}&intent=${intent}`,
     },
   })
 

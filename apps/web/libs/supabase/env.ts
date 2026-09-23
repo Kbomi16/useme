@@ -9,9 +9,17 @@ export const getSupabaseEnv = () => {
   return { url, key }
 }
 
-export const getSafeNextPath = (next: string | null | undefined) => {
-  if (!next || !next.startsWith("/") || next.startsWith("//") || next.includes("://")) {
-    return "/"
+export const getSafeNextPath = (
+  next: string | null | undefined,
+  defaultPath = "/",
+) => {
+  if (
+    !next ||
+    !next.startsWith("/") ||
+    next.startsWith("//") ||
+    next.includes("://")
+  ) {
+    return defaultPath
   }
 
   return next

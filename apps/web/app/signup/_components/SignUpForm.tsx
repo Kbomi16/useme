@@ -68,6 +68,7 @@ export default function SignUpForm({
         return
       }
 
+      toast.success("가입을 완료했어요. 반가워요!")
       router.push(nextPath)
       router.refresh()
     },
@@ -98,6 +99,7 @@ export default function SignUpForm({
     const params = new URLSearchParams({
       provider,
       next: nextPath,
+      intent: "signup",
     })
     window.location.assign(`/api/auth/oauth?${params.toString()}`)
   }

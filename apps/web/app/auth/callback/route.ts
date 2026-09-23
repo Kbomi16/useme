@@ -7,6 +7,8 @@ export const GET = async (request: Request) => {
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get("code")
   const next = getSafeNextPath(requestUrl.searchParams.get("next"))
+  const intent =
+    requestUrl.searchParams.get("intent") === "signup" ? "signup" : "login"
   const loginUrl = new URL("/login", requestUrl.origin)
 
   if (!code) {
@@ -28,5 +30,11 @@ export const GET = async (request: Request) => {
     return NextResponse.redirect(loginUrl)
   }
 
-  return NextResponse.redirect(new URL(next, requestUrl.origin))
+  const redirectUrl = new URL(next, requestUrl.origin)
+  redirectUrl.searchParams.set(
+    "authToast",
+    intent === "signup" ? "signup" : "login",
+  )
+
+  return NextResponse.redirect(redirectUrl)
 }

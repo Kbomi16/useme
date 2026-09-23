@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation"
 import { useMutation } from "@tanstack/react-query"
 
 import { Button } from "@workspace/ui/components/button"
+import { toast } from "@workspace/ui/components/sonner"
 
 import { httpClient } from "@/libs/httpClient"
 
@@ -14,7 +15,8 @@ export default function MyPageSignOut() {
   const signOutMutation = useMutation({
     mutationFn: () => httpClient.post("/auth/sign-out"),
     onSuccess: () => {
-      router.push("/")
+      toast.success("로그아웃했어요.")
+      router.push("/login")
       router.refresh()
     },
   })
@@ -26,7 +28,7 @@ export default function MyPageSignOut() {
   return (
     <Button
       type="button"
-      variant="outline"
+      variant="destructive"
       className="w-full sm:w-auto"
       disabled={signOutMutation.isPending}
       onClick={handleSignOut}

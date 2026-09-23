@@ -40,6 +40,7 @@ export default function SignInForm({ nextPath, errorMessage }: SignInFormProps) 
     mutationFn: (payload: SignInValues) =>
       httpClient.post("/auth/sign-in", payload),
     onSuccess: () => {
+      toast.success("로그인했어요. 반가워요!")
       router.push(nextPath)
       router.refresh()
     },
@@ -56,6 +57,7 @@ export default function SignInForm({ nextPath, errorMessage }: SignInFormProps) 
     const params = new URLSearchParams({
       provider,
       next: nextPath,
+      intent: "login",
     })
     window.location.assign(`/api/auth/oauth?${params.toString()}`)
   }
