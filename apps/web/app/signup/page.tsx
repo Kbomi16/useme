@@ -1,4 +1,7 @@
+import { redirect } from "next/navigation"
+
 import SignUpForm from "./_components/SignUpForm"
+import { getAuthUser } from "@/libs/auth/getAuthUser"
 import { getSafeNextPath } from "@/libs/supabase/env"
 
 type SignUpPageProps = {
@@ -7,6 +10,11 @@ type SignUpPageProps = {
 
 export default async function SignUpPage({ searchParams }: SignUpPageProps) {
   const params = await searchParams
+  const user = await getAuthUser()
+
+  if (user) {
+    redirect(getSafeNextPath(params.next, "/discover"))
+  }
 
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center px-4 py-12 md:px-6 md:py-16">

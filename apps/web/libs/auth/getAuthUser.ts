@@ -6,31 +6,30 @@ export const getAuthUser = async (): Promise<AuthUser | null> => {
 
   if (!supabase) return null
 
-  const { data } = await supabase.auth.getClaims()
-  const claims = data?.claims
-  const userId = claims?.sub
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser()
 
-  if (!claims || typeof userId !== "string") return null
+  if (error || !user) return null
 
-  const emailClaim = claims.email
   const { data: profile } = await supabase
     .from("profiles")
     .select("display_name, username")
-    .eq("id", userId)
+    .eq("id", user.id)
     .maybeSingle<{ display_name: string; username: string }>()
 
-  const username =
-    profile?.username ??
-    (typeof userId === "string" ? userId.slice(0, 8) : "user")
+  const username = profile?.username ?? user.id.slice(0, 8)
 
   const displayName =
     profile?.display_name ||
     profile?.username ||
-    (typeof emailClaim === "string" ? emailClaim : "나")
+    user.email ||
+    "나"
 
   return {
-    id: userId,
-    email: typeof emailClaim === "string" ? emailClaim : null,
+    id: user.id,
+    email: user.email ?? null,
     username,
     displayName,
   }

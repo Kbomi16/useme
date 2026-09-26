@@ -16,20 +16,19 @@ export const getMyProfile = async (): Promise<MyProfile | null> => {
 
   if (!supabase) return null
 
-  const { data } = await supabase.auth.getClaims()
-  const claims = data?.claims
-  const userId = claims?.sub
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser()
 
-  if (!claims || typeof userId !== "string") return null
-
-  const emailClaim = claims.email
+  if (error || !user) return null
 
   const { data: profile } = await supabase
     .from("profiles")
     .select(
       "username, display_name, bio, credit_balance, credit_earned_total, tier",
     )
-    .eq("id", userId)
+    .eq("id", user.id)
     .maybeSingle<{
       username: string
       display_name: string
@@ -42,8 +41,8 @@ export const getMyProfile = async (): Promise<MyProfile | null> => {
   if (!profile) return null
 
   return {
-    id: userId,
-    email: typeof emailClaim === "string" ? emailClaim : null,
+    id: user.id,
+    email: user.email ?? null,
     username: profile.username,
     displayName: profile.display_name,
     bio: profile.bio,
