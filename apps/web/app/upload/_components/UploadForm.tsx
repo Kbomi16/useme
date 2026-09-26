@@ -35,7 +35,7 @@ export default function UploadForm() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    toast.info("저장은 다음에 붙일게요.")
+    toast.info("로그인은 다음에 붙일게요.")
   }
 
   return (
