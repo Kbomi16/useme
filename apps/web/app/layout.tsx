@@ -5,6 +5,7 @@ import { cn } from "@workspace/ui/lib/utils"
 
 import { Toaster } from "@workspace/ui/components/sonner"
 
+import AppFooter from "@/components/common/AppFooter"
 import AppHeader from "@/components/common/AppHeader"
 import Providers from "@/components/common/Providers"
 import ThemeProvider from "@/components/common/ThemeProvider"
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <div className="flex min-h-svh flex-col">
               <AppHeader />
               {children}
+              <AppFooter />
             </div>
             <Toaster position="top-center" />
           </Providers>

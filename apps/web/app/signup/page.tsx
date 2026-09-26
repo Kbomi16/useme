@@ -1,14 +1,14 @@
 import { redirect } from "next/navigation"
 
-import SignInForm from "./_components/SignInForm"
+import SignUpForm from "./_components/SignUpForm"
 import { getAuthUser } from "@/libs/auth/getAuthUser"
 import { getSafeNextPath } from "@/libs/supabase/env"
 
-type LoginPageProps = {
+type SignUpPageProps = {
   searchParams: Promise<{ next?: string; error?: string }>
 }
 
-export default async function LoginPage({ searchParams }: LoginPageProps) {
+export default async function SignUpPage({ searchParams }: SignUpPageProps) {
   const params = await searchParams
   const user = await getAuthUser()
 
@@ -21,16 +21,16 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
       <div className="flex w-full max-w-md flex-col gap-8 text-center">
         <div className="flex flex-col gap-2">
           <h1 className="text-[28px]/snug font-bold tracking-tight break-keep sm:text-[34px]/snug">
-            로그인
+            회원가입
           </h1>
           <p className="text-[17px]/relaxed break-keep text-muted-foreground">
-            오, 다시 오셨네요. 반가워요!
+            와, 처음 오셨네요. 반가워요!
             <br />
-            로그인하고 카드 올리거나, 다른 사람 것도 써 보러 가요.
+            가입하고 카드 한 장 만들어 단톡에 던져 보세요.
           </p>
         </div>
-        <SignInForm
-          nextPath={getSafeNextPath(params.next, "/discover")}
+        <SignUpForm
+          nextPath={getSafeNextPath(params.next)}
           errorMessage={params.error}
         />
       </div>
