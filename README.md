@@ -26,14 +26,14 @@ useme/
   apps/admin/               # 운영 콘솔 (port 3001)
   packages/ui/              # shadcn 공통 UI (@workspace/ui)
   packages/config/          # TypeScript / ESLint / Prettier
-  supabase/migrations/      # 자리만. 연동은 별도 브랜치
+  supabase/                 # Auth·profiles 마이그레이션
 ```
 
 ## 기술 스택
 
 - Next.js App Router · TypeScript · Tailwind CSS v4 · shadcn/ui
-- TanStack Query · Zustand · Axios (이번 브랜치는 Provider와 Axios instance까지)
-- 배포 예정: Vercel · BaaS 예정: Supabase (이번 브랜치에서 연동하지 않음)
+- TanStack Query · Zustand · Axios (`/api` BFF)
+- 배포 예정: Vercel · Auth: Supabase (`@supabase/ssr` 쿠키 세션)
 
 ## 요구 사항
 
@@ -44,6 +44,9 @@ useme/
 
 ```bash
 pnpm install
+
+# 환경 변수 (값은 본인 Supabase 프로젝트에서)
+cp .env.example apps/web/.env.local
 
 # web 3000, admin 3001
 pnpm dev
@@ -58,21 +61,27 @@ pnpm lint
 pnpm build
 ```
 
+## 환경 변수
+
+`apps/web/.env.local`에 넣습니다. `service_role`은 클라이언트·`NEXT_PUBLIC_`에 두지 않습니다.
+
+```text
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+```
+
+대시보드에서 Email · Google · Kakao 제공자를 켜고 Redirect URL은 `{origin}/auth/callback`입니다.
+
 ## 이번 브랜치에 없는 것
 
-- `app/api` Route Handler, 도메인 API
-- Auth · RLS · 테이블 마이그레이션
-- `@supabase/ssr` 클라이언트, `.env` 키
-- `/login`, `/discover`, `/me`, `/project/[slug]` 같은 기능 라우트
-
-QueryClientProvider와 `httpClient`(baseURL `/api`)는 파일만 준비되어 있다. 호출 코드는 다음 작업에서 붙인다.
+- `/me` 크레딧 UI, `daily_logins`, admin 로그인
+- 프로젝트 CRUD, 브라우저에서 supabase-js로 DB 조회
 
 ## 로드맵
 
-1. **지금:** 모노레포 골격
-2. **다음 브랜치:** Supabase 연동
-3. **스프린트 A:** 스키마 · Auth · CRUD · 공개 · OG · 게이지
-4. **스프린트 B:** 홍보팩 · 스포트라이트 · 디스커버
+1. **지금:** Auth (이메일/비밀번호 · Google · 카카오) · `profiles`
+2. **다음:** 프로젝트 CRUD · 공개 · OG · 게이지
+3. **스프린트 B:** 홍보팩 · 스포트라이트 · 디스커버
 
 ## 기획
 

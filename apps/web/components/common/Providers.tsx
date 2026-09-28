@@ -1,8 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import { QueryClientProvider } from "@tanstack/react-query"
 
+import AuthToastFromUrl from "@/components/common/AuthToastFromUrl"
 import GlobalModal from "@/components/common/GlobalModal"
 import { createQueryClient } from "@/libs/query/createQueryClient"
 
@@ -16,6 +17,9 @@ export default function Providers({ children }: ProvidersProps) {
   return (
     <QueryClientProvider client={queryClient}>
       {children}
+      <Suspense fallback={null}>
+        <AuthToastFromUrl />
+      </Suspense>
       <GlobalModal />
     </QueryClientProvider>
   )
