@@ -13,12 +13,14 @@ import { cn } from "@workspace/ui/lib/utils"
 
 import MyPageSignOut from "./_components/MyPageSignOut"
 import { getMyProfile } from "@/libs/auth/getMyProfile"
+import { listMyProjects } from "@/libs/projects/queries"
 
 const formatCredits = (value: number) =>
   new Intl.NumberFormat("ko-KR").format(value)
 
 export default async function MyPage() {
   const profile = await getMyProfile()
+  const projects = await listMyProjects()
 
   if (!profile) {
     redirect("/login?next=/me")
@@ -34,7 +36,7 @@ export default async function MyPage() {
           {profile.displayName}님, 안녕하세요
         </h1>
         <p className="text-[17px]/relaxed break-keep text-muted-foreground">
-          프로필과 크레딧은 여기서만 확인해요. 카드 올리기는 올리기 메뉴에서.
+          올린 카드는 여기서 다시 고쳐요.
         </p>
       </div>
 
@@ -103,6 +105,39 @@ export default async function MyPage() {
           </CardContent>
         </Card>
       </div>
+
+      <section className="flex flex-col gap-4" aria-labelledby="my-projects">
+        <h2 id="my-projects" className="text-lg font-bold tracking-tight">
+          내 카드
+        </h2>
+        {projects.length === 0 ? (
+          <p className="text-sm break-keep text-muted-foreground">
+            아직 올린 카드가 없어요.
+          </p>
+        ) : (
+          <ul className="flex flex-col gap-3">
+            {projects.map((project) => (
+              <li
+                key={project.slug}
+                className="flex flex-col gap-3 rounded-2xl bg-card p-4 ring-1 ring-black/5 sm:flex-row sm:items-center sm:justify-between dark:ring-white/10"
+              >
+                <div className="min-w-0">
+                  <p className="font-semibold break-keep">{project.name}</p>
+                  <p className="truncate text-sm text-muted-foreground">
+                    {project.tagline}
+                  </p>
+                </div>
+                <Link
+                  href={`/upload/${encodeURIComponent(project.slug)}`}
+                  className={cn(buttonVariants({ variant: "outline" }), "h-10")}
+                >
+                  수정
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
 
       <div className="flex flex-col gap-3 border-t pt-8 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap gap-2">
