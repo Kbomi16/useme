@@ -9,14 +9,20 @@ export type ProjectRow = {
   action: string
   metric: string
   body: string
+  cover_path: string | null
+  updated_at: string
 }
 
 export type SavedProject = UploadValues & {
   slug: string
+  coverPath: string | null
+  updatedAt: string
 }
 
+export type PublishedProject = SavedProject
+
 export const projectColumns =
-  "slug, name, tagline, url, problem, action, metric, body"
+  "slug, name, tagline, url, problem, action, metric, body, cover_path, updated_at"
 
 export const toSavedProject = (row: ProjectRow): SavedProject => ({
   slug: row.slug,
@@ -27,4 +33,6 @@ export const toSavedProject = (row: ProjectRow): SavedProject => ({
   action: row.action,
   metric: row.metric,
   body: row.body,
+  coverPath: row.cover_path,
+  updatedAt: row.updated_at,
 })
