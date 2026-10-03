@@ -2,8 +2,10 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
+import axios from "axios"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { type ReactNode } from "react"
+import { type ChangeEvent, type ReactNode, useRef, useState } from "react"
 import { Controller, useForm, useWatch } from "react-hook-form"
 
 import { Button } from "@workspace/ui/components/button"
@@ -15,8 +17,16 @@ import { cn } from "@workspace/ui/lib/utils"
 
 import { getErrorMessage, fieldClassName } from "@/app/login/_components/authFormShared"
 import { httpClient } from "@/libs/httpClient"
+import {
+  COVER_ACCEPT,
+  COVER_MAX_BYTES,
+  isCoverMime,
+} from "@/libs/projects/covers"
+import { uploadProjectCover } from "@/libs/projects/uploadCover"
 
-import ProjectBodyEditor from "./ProjectBodyEditor"
+import ProjectBodyEditor, {
+  type ProjectBodyEditorHandle,
+} from "./ProjectBodyEditor"
 import {
   emptyUploadValues,
   uploadSchema,
@@ -27,13 +37,33 @@ type UploadFormProps = {
   mode?: "create" | "edit"
   projectSlug?: string
   initialValues?: UploadValues
+  coverUrl?: string | null
+}
+
+type UploadSubmit = {
+  values: UploadValues
+  cover: File | null
+}
+
+const toastActionError = (error: unknown, fallback: string) => {
+  if (error instanceof Error && error.message && !axios.isAxiosError(error)) {
+    toast.error(error.message)
+    return
+  }
+
+  toast.error(getErrorMessage(error, fallback))
 }
 
 export default function UploadForm({
   mode = "create",
   projectSlug,
   initialValues = emptyUploadValues,
+  coverUrl = null,
 }: UploadFormProps) {
+  const [coverFile, setCoverFile] = useState<File | null>(null)
+  const [localPreviewUrl, setLocalPreviewUrl] = useState<string | null>(null)
+
+  const bodyEditorRef = useRef<ProjectBodyEditorHandle>(null)
   const router = useRouter()
 
   const {
@@ -51,40 +81,105 @@ export default function UploadForm({
 
   // ! [POST] 카드 등록
   const createMutation = useMutation({
-    mutationFn: (payload: UploadValues) =>
-      httpClient
-        .post<{ slug: string }>("/projects", payload)
-        .then((response) => response.data),
+    mutationFn: async ({ values, cover }: UploadSubmit) => {
+      const body =
+        (await bodyEditorRef.current?.commitImages(values.body)) ?? values.body
+      const { data } = await httpClient.post<{ slug: string }>("/projects", {
+        ...values,
+        body,
+      })
+
+      if (!cover) return { slug: data.slug, coverError: null as string | null }
+
+      try {
+        await uploadProjectCover(data.slug, cover)
+        return { slug: data.slug, coverError: null as string | null }
+      } catch (error) {
+        return {
+          slug: data.slug,
+          coverError:
+            error instanceof Error ? error.message : "이미지를 올리지 못했어요.",
+        }
+      }
+    },
     onSuccess: (data) => {
+      if (data.coverError) toast.error(data.coverError)
       toast.success("카드를 등록했어요.")
       router.push(`/upload/${encodeURIComponent(data.slug)}`)
       router.refresh()
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "카드를 등록하지 못했어요."))
+      toastActionError(error, "카드를 등록하지 못했어요.")
     },
   })
 
   const handleRegister = handleSubmit((values) => {
-    createMutation.mutate(values)
+    createMutation.mutate({ values, cover: coverFile })
   })
 
   // ! [PATCH] 카드 수정
   const updateMutation = useMutation({
-    mutationFn: (payload: UploadValues) =>
-      httpClient.patch(`/projects/${encodeURIComponent(projectSlug ?? "")}`, payload),
-    onSuccess: () => {
+    mutationFn: async ({ values, cover }: UploadSubmit) => {
+      const body =
+        (await bodyEditorRef.current?.commitImages(values.body)) ?? values.body
+      await httpClient.patch(
+        `/projects/${encodeURIComponent(projectSlug ?? "")}`,
+        { ...values, body },
+      )
+
+      if (!cover) return { coverError: null as string | null }
+
+      try {
+        await uploadProjectCover(projectSlug ?? "", cover)
+        return { coverError: null as string | null }
+      } catch (error) {
+        return {
+          coverError:
+            error instanceof Error ? error.message : "이미지를 올리지 못했어요.",
+        }
+      }
+    },
+    onSuccess: (data) => {
+      if (data.coverError) {
+        toast.error(data.coverError)
+        return
+      }
+
       toast.success("카드를 수정했어요.")
       router.refresh()
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "카드를 수정하지 못했어요."))
+      toastActionError(error, "카드를 수정하지 못했어요.")
     },
   })
 
   const handleUpdate = handleSubmit((values) => {
-    updateMutation.mutate(values)
+    updateMutation.mutate({ values, cover: coverFile })
   })
+
+  const handleCoverChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.currentTarget.files?.[0] ?? null
+
+    if (!file) return
+
+    if (!isCoverMime(file.type)) {
+      toast.error("jpg, png, webp만 올릴 수 있어요.")
+      event.currentTarget.value = ""
+      return
+    }
+
+    if (file.size > COVER_MAX_BYTES) {
+      toast.error("이미지는 5MB까지 올릴 수 있어요.")
+      event.currentTarget.value = ""
+      return
+    }
+
+    setCoverFile(file)
+    setLocalPreviewUrl((current) => {
+      if (current) URL.revokeObjectURL(current)
+      return URL.createObjectURL(file)
+    })
+  }
 
   const isPending = createMutation.isPending || updateMutation.isPending
 
@@ -149,6 +244,19 @@ export default function UploadForm({
             aria-invalid={Boolean(errors.url)}
             aria-describedby={errors.url ? "project-url-error" : undefined}
             {...register("url")}
+          />
+        </UploadField>
+        <UploadField
+          id="project-cover"
+          label="카드 이미지"
+          hint="jpg, png, webp · 5MB까지"
+        >
+          <Input
+            id="project-cover"
+            type="file"
+            accept={COVER_ACCEPT}
+            className="h-11 cursor-pointer rounded-lg pt-2"
+            onChange={handleCoverChange}
           />
         </UploadField>
         <fieldset className="flex flex-col gap-4 rounded-2xl bg-muted/50 p-4 sm:p-5">
@@ -223,6 +331,7 @@ export default function UploadForm({
                 value={field.value}
                 invalid={Boolean(errors.body)}
                 describedBy={errors.body ? "project-body-error" : undefined}
+                commitRef={bodyEditorRef}
                 onChange={field.onChange}
               />
             )}
@@ -253,7 +362,10 @@ export default function UploadForm({
           </Button>
         </div>
       </form>
-      <UploadPreview draft={draft} />
+      <UploadPreview
+        draft={draft}
+        imageUrl={localPreviewUrl ?? coverUrl}
+      />
     </div>
   )
 }
@@ -285,7 +397,13 @@ function UploadField({ id, label, hint, error, children }: UploadFieldProps) {
   )
 }
 
-function UploadPreview({ draft }: { draft: UploadValues }) {
+function UploadPreview({
+  draft,
+  imageUrl,
+}: {
+  draft: UploadValues
+  imageUrl: string | null
+}) {
   const slots = [
     { hint: "왜", text: draft.problem || "왜 만들었어요?" },
     { hint: "뭘", text: draft.action || "뭘 했어요?" },
@@ -296,8 +414,30 @@ function UploadPreview({ draft }: { draft: UploadValues }) {
     <aside className="lg:sticky lg:top-24">
       <p className="mb-3 text-[13px] font-semibold text-primary">카드 미리보기</p>
       <article className="flex flex-col overflow-hidden rounded-3xl bg-card shadow-[0_8px_24px_rgb(15_23_42/0.06)] ring-1 ring-black/5 dark:shadow-none dark:ring-white/10">
-        <div className="flex aspect-video items-center justify-center bg-muted px-4 text-center text-[13px] break-keep text-muted-foreground">
-          이미지는 다음에 붙일게요
+        <div className="relative aspect-video bg-muted">
+          {imageUrl ? (
+            imageUrl.startsWith("blob:") ? (
+              // blob 미리보기는 next/image가 다루지 않아요.
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={imageUrl}
+                alt=""
+                className="size-full object-contain"
+              />
+            ) : (
+              <Image
+                src={imageUrl}
+                alt=""
+                fill
+                sizes="320px"
+                className="object-contain"
+              />
+            )
+          ) : (
+            <p className="flex size-full items-center justify-center px-4 text-center text-[13px] break-keep text-muted-foreground">
+              카드 이미지를 고르면 여기에 보여요
+            </p>
+          )}
         </div>
         <div className="flex flex-col gap-3 p-4">
           <div className="flex flex-col gap-1">
