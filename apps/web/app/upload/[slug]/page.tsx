@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation"
 
 import UploadForm from "../_components/UploadForm"
 import { getAuthUser } from "@/libs/auth/getAuthUser"
+import { getProjectCoverUrl } from "@/libs/projects/covers"
 import { getOwnedProject } from "@/libs/projects/queries"
 
 type EditProjectPageProps = {
@@ -20,7 +21,7 @@ export default async function EditProjectPage({ params }: EditProjectPageProps) 
 
   if (!project) notFound()
 
-  const { slug: projectSlug, ...initialValues } = project
+  const { slug: projectSlug, coverPath, updatedAt, ...initialValues } = project
 
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-10 px-4 py-12 md:px-6 md:py-16">
@@ -37,6 +38,7 @@ export default async function EditProjectPage({ params }: EditProjectPageProps) 
         mode="edit"
         projectSlug={projectSlug}
         initialValues={initialValues}
+        coverUrl={getProjectCoverUrl(coverPath, updatedAt)}
       />
     </main>
   )
