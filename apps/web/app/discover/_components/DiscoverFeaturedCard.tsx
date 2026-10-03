@@ -4,11 +4,11 @@ import type { ReactNode } from "react"
 import {
   AppealCardBadges,
   AppealCardSlots,
+  type AppealCardProject,
 } from "../../_components/AppealCard"
-import type { SampleProject } from "../../_components/sampleProjects"
 
 type DiscoverFeaturedCardProps = {
-  project: SampleProject
+  project: AppealCardProject
   children?: ReactNode
 }
 
