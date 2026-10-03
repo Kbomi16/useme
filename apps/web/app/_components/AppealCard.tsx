@@ -5,8 +5,13 @@ import { cn } from "@workspace/ui/lib/utils"
 
 import type { SampleProject } from "./sampleProjects"
 
+export type AppealCardProject = Pick<
+  SampleProject,
+  "name" | "tagline" | "problem" | "action" | "metric" | "imageSrc"
+>
+
 type AppealCardProps = {
-  project: SampleProject
+  project: AppealCardProject
   className?: string
   rank?: number
   children?: ReactNode
@@ -37,7 +42,7 @@ export function AppealCardSlots({
   project,
   className,
 }: {
-  project: SampleProject
+  project: Omit<AppealCardProject, "imageSrc">
   className?: string
 }) {
   const values = {
@@ -77,13 +82,19 @@ export default function AppealCard({
       )}
     >
       <div className="relative aspect-video bg-muted">
-        <Image
-          src={project.imageSrc}
-          alt=""
-          fill
-          sizes="(min-width: 1024px) 280px, 50vw"
-          className="object-contain"
-        />
+        {project.imageSrc ? (
+          <Image
+            src={project.imageSrc}
+            alt=""
+            fill
+            sizes="(min-width: 1024px) 280px, 50vw"
+            className="object-contain"
+          />
+        ) : (
+          <p className="flex size-full items-center justify-center px-4 text-center text-[13px] break-keep text-muted-foreground">
+            이미지 없음
+          </p>
+        )}
         <AppealCardBadges rank={rank} />
       </div>
       <div className="flex flex-1 flex-col gap-3 p-4">

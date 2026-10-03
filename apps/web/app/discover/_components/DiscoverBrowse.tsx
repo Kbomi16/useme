@@ -9,7 +9,21 @@ import { Input } from "@workspace/ui/components/input"
 import { cn } from "@workspace/ui/lib/utils"
 
 import AppealCard from "../../_components/AppealCard"
-import { type SampleProject } from "../../_components/sampleProjects"
+import {
+  type ProjectCategory,
+  type SampleProject,
+} from "../../_components/sampleProjects"
+
+export type BrowseProject = {
+  slug: string
+  name: string
+  tagline: string
+  problem: string
+  action: string
+  metric: string
+  imageSrc: string
+  category?: ProjectCategory
+}
 import DiscoverCategoryNav, {
   type DiscoverCategoryFilter,
 } from "./DiscoverCategoryNav"
@@ -18,7 +32,7 @@ import DiscoverProjectActions from "./DiscoverProjectActions"
 
 type DiscoverBrowseProps = {
   featured: SampleProject
-  shelf: SampleProject[]
+  shelf: BrowseProject[]
 }
 
 export default function DiscoverBrowse({

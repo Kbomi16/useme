@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 
@@ -13,6 +14,7 @@ import { cn } from "@workspace/ui/lib/utils"
 
 import MyPageSignOut from "./_components/MyPageSignOut"
 import { getMyProfile } from "@/libs/auth/getMyProfile"
+import { getProjectCoverUrl } from "@/libs/projects/covers"
 import { listMyProjects } from "@/libs/projects/queries"
 
 const formatCredits = (value: number) =>
@@ -116,16 +118,35 @@ export default async function MyPage() {
           </p>
         ) : (
           <ul className="flex flex-col gap-3">
-            {projects.map((project) => (
+            {projects.map((project) => {
+              const coverUrl = getProjectCoverUrl(
+                project.coverPath,
+                project.updatedAt,
+              )
+
+              return (
               <li
                 key={project.slug}
                 className="flex flex-col gap-3 rounded-2xl bg-card p-4 ring-1 ring-black/5 sm:flex-row sm:items-center sm:justify-between dark:ring-white/10"
               >
-                <div className="min-w-0">
-                  <p className="font-semibold break-keep">{project.name}</p>
-                  <p className="truncate text-sm text-muted-foreground">
-                    {project.tagline}
-                  </p>
+                <div className="flex min-w-0 items-center gap-3">
+                  <span className="relative size-16 shrink-0 overflow-hidden rounded-xl bg-muted">
+                    {coverUrl ? (
+                      <Image
+                        src={coverUrl}
+                        alt=""
+                        fill
+                        sizes="64px"
+                        className="object-cover"
+                      />
+                    ) : null}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="font-semibold break-keep">{project.name}</p>
+                    <p className="truncate text-sm text-muted-foreground">
+                      {project.tagline}
+                    </p>
+                  </div>
                 </div>
                 <Link
                   href={`/upload/${encodeURIComponent(project.slug)}`}
@@ -134,7 +155,8 @@ export default async function MyPage() {
                   수정
                 </Link>
               </li>
-            ))}
+              )
+            })}
           </ul>
         )}
       </section>
