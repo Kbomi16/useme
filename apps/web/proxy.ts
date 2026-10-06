@@ -47,10 +47,13 @@ export const proxy = async (request: NextRequest) => {
     return response
   }
 
-  const authRequiredPaths = ["/upload", "/me"]
+  const authRequired =
+    pathname === "/me" ||
+    pathname === "/upload" ||
+    pathname.startsWith("/upload/")
   const guestOnlyPaths = ["/login", "/signup"]
 
-  if (authRequiredPaths.includes(pathname) && !isSignedIn) {
+  if (authRequired && !isSignedIn) {
     const loginUrl = request.nextUrl.clone()
     loginUrl.pathname = "/login"
     loginUrl.searchParams.set("next", getSafeNextPath(pathname))

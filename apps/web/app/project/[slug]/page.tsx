@@ -1,10 +1,13 @@
 import { notFound } from "next/navigation"
 
+import { getPublicProject } from "@/libs/projects/queries"
+
 import {
   getRelatedProjects,
   getSampleProject,
   sampleProjects,
 } from "../../_components/sampleProjects"
+import PublishedProject from "./_components/PublishedProject"
 import ProjectAuthor from "./_components/ProjectAuthor"
 import ProjectComments from "./_components/ProjectComments"
 import ProjectDetail from "./_components/ProjectDetail"
@@ -20,6 +23,12 @@ export const generateStaticParams = () =>
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params
+  const published = await getPublicProject(slug)
+
+  if (published) {
+    return <PublishedProject project={published} />
+  }
+
   const project = getSampleProject(slug)
 
   if (!project) notFound()
