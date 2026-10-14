@@ -8,6 +8,8 @@ import { AppealCardSlots } from "../../../_components/AppealCard"
 import { getProjectCoverUrl } from "@/libs/projects/covers"
 import type { SavedProject } from "@/libs/projects/types"
 
+import ProjectMarkdown from "./ProjectMarkdown"
+
 type PublishedProjectProps = {
   project: SavedProject
 }
@@ -57,9 +59,7 @@ export default function PublishedProject({ project }: PublishedProjectProps) {
         <h2 id="project-body" className="text-lg font-bold tracking-tight">
           프로젝트 설명
         </h2>
-        <p className="text-[15px]/relaxed break-keep whitespace-pre-wrap">
-          {project.body}
-        </p>
+        <ProjectMarkdown source={project.body} />
       </section>
     </main>
   )
